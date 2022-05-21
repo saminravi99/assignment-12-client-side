@@ -6,6 +6,23 @@ import { Toaster } from "react-hot-toast";
 import auth from "../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import useToken from "../hooks/useToken";
+import Payment from "../Payment/Payment";
+import Home from "../Home/Home";
+import Header from "../Header/Header";
+import Login from "../Login/Login";
+import SignUp from "../SignUp/SignUp";
+import Blogs from "../Blogs/Blogs";
+import Footer from "../Footer/Footer";
+import NotFound from "../NotFound/NotFound";
+import Dashboard from "../Dashboard/Dashboard";
+import AddProduct from "../AddProduct/AddProduct";
+import Portfolio from "../Portfolio/Portfolio";
+import ManageOrders from "../ManageOrders/ManageOrders";
+import ManageProduct from "../ManageProduct/ManageProduct";
+import AllProducts from "../AllProducts/AllProducts";
+import MakeAdmin from "../MakeAdmin/MakeAdmin";
+import MyProfile from "../MyProfile/MyProfile";
+import AddReview from "../AddReview/AddReview";
 
 export const AllContext = createContext();
 
@@ -18,10 +35,10 @@ function App() {
   console.log(token);
 
   // Custom Hook For Fetching All Books From The Server API
-  const [books] = useBooks();
+  // const [books] = useBooks();
 
   return (
-    <AllContext.Provider value={{ books }}>
+    <AllContext.Provider value={{}}>
       <div>
         <div>
           <Header></Header>
@@ -31,49 +48,77 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route
-            path="/inventory"
+            path="/payment/:id"
             element={
               <RequireAuth>
-                <Inventory />
+                <Payment />
               </RequireAuth>
             }
           ></Route>
           <Route
-            path="/my-items"
+            path="/dashboard"
             element={
               <RequireAuth>
-                <MyItems />
+                <Dashboard></Dashboard>
               </RequireAuth>
             }
-          ></Route>
-          <Route
-            path="/add-items"
-            element={
-              <RequireAuth>
-                <AddItems />
-              </RequireAuth>
-            }
-          ></Route>
-          <Route
-            path="/inventory/:id"
-            element={
-              <RequireAuth>
-                <Update></Update>
-              </RequireAuth>
-            }
-          ></Route>
-          <Route
-            path="manage-inventory"
-            element={
-              <RequireAuth>
-                <ManageInventory></ManageInventory>
-              </RequireAuth>
-            }
-          ></Route>
+          >
+            <Route
+              path="manage-products"
+              element={
+                <RequireAuth>
+                  <ManageProduct></ManageProduct>
+                </RequireAuth>
+              }
+            ></Route>
+            <Route
+              path="make-admin"
+              element={
+                <RequireAuth>
+                  <MakeAdmin></MakeAdmin>
+                </RequireAuth>
+              }
+            ></Route>
+            <Route
+              path="my-profile"
+              element={
+                <RequireAuth>
+                  <MyProfile></MyProfile>
+                </RequireAuth>
+              }
+            ></Route>
+            <Route
+              path="add-review"
+              element={
+                <RequireAuth>
+                  <AddReview></AddReview>
+                </RequireAuth>
+              }
+            ></Route>
+
+            <Route
+              path="/add-product"
+              element={
+                <RequireAuth>
+                  <AddProduct />
+                </RequireAuth>
+              }
+            ></Route>
+            <Route
+              path="/manage-orders"
+              element={
+                <RequireAuth>
+                  <ManageOrders></ManageOrders>
+                </RequireAuth>
+              }
+            ></Route>
+          </Route>
+
           <Route path="/blogs" element={<Blogs />}></Route>
+          <Route path="/portfolio" element={<Portfolio />}></Route>
+          <Route path="/all-products" element={<AllProducts />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/sign-up" element={<SignUp />}></Route>
-          <Route path="/about-us" element={<AboutUs></AboutUs>}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Footer></Footer>
