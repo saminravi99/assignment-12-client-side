@@ -31,6 +31,13 @@ const Header = () => {
         pathname === "/sign-up" ||
         pathname === "/blogs" ||
         pathname === "/dashboard" ||
+        pathname === "/dashboard/add-review" ||
+        pathname === "/dashboard/my-orders" ||
+        pathname === "/dashboard/my-profile" ||
+        pathname === "/dashboard/manage-orders" ||
+        pathname === "/dashboard/manage-products" ||
+        pathname === "/dashboard/make-admin" ||
+        pathname === "/dashboard/add-product" ||
         pathname === "/all-products" ||
         pathname === "/portfolio" ||
         pathname === "/payment" ||

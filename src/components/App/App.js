@@ -24,6 +24,7 @@ import MakeAdmin from "../MakeAdmin/MakeAdmin";
 import MyProfile from "../MyProfile/MyProfile";
 import AddReview from "../AddReview/AddReview";
 import ContactUs from "../ContactUs/ContactUs";
+import MyOrders from "../MyOrders/MyOrders";
 
 export const AllContext = createContext();
 
@@ -64,55 +65,64 @@ function App() {
               </RequireAuth>
             }
           >
-            <Route
-              path="manage-products"
-              element={
-                <RequireAuth>
-                  <ManageProduct></ManageProduct>
-                </RequireAuth>
-              }
-            ></Route>
-            <Route
-              path="make-admin"
-              element={
-                <RequireAuth>
-                  <MakeAdmin></MakeAdmin>
-                </RequireAuth>
-              }
-            ></Route>
-            <Route
-              path="my-profile"
-              element={
-                <RequireAuth>
-                  <MyProfile></MyProfile>
-                </RequireAuth>
-              }
-            ></Route>
-            <Route
-              path="add-review"
-              element={
-                <RequireAuth>
-                  <AddReview></AddReview>
-                </RequireAuth>
-              }
-            ></Route>
+                  <Route
+                    path="manage-products"
+                    element={
+                      <RequireAuth>
+                        <ManageProduct></ManageProduct>
+                      </RequireAuth>
+                    }
+                  ></Route>
+                  <Route
+                    path="my-orders"
+                    index
+                    element={
+                      <RequireAuth>
+                        <MyOrders></MyOrders>
+                      </RequireAuth>
+                    }
+                  ></Route>
+                  <Route
+                    path="make-admin"
+                    element={
+                      <RequireAuth>
+                        <MakeAdmin></MakeAdmin>
+                      </RequireAuth>
+                    }
+                  ></Route>
+                  <Route
+                    path="my-profile"
+                    element={
+                      <RequireAuth>
+                        <MyProfile></MyProfile>
+                      </RequireAuth>
+                    }
+                  ></Route>
+                  <Route
+                    path="add-review"
+                    element={
+                      <RequireAuth>
+                        <AddReview></AddReview>
+                      </RequireAuth>
+                    }
+                  ></Route>
 
-            <Route
-              path="add-product"
-              element={
-                <RequireAuth>
-                  <AddProduct />
-                </RequireAuth>
-              }
-            ></Route>
-            <Route
-              path="manage-orders"
-              element={
-                <RequireAuth>
-                  <ManageOrders></ManageOrders>
-                </RequireAuth>
-              }
-            ></Route>
+                  <Route
+                    path="add-product"
+                    element={
+                      <RequireAuth>
+                        <AddProduct />
+                      </RequireAuth>
+                    }
+                  ></Route>
+                  <Route
+                    path="manage-orders"
+                    element={
+                      <RequireAuth>
+                        <ManageOrders></ManageOrders>
+                      </RequireAuth>
+                    }
+                  ></Route>
           </Route>
 
           <Route path="/blogs" element={<Blogs />}></Route>
