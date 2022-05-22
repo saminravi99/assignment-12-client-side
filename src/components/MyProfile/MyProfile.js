@@ -20,7 +20,7 @@ const MyProfile = () => {
             <div className="me-5">
               <img
                 className="rounded-circle mb-5"
-                src={authUser.photoURL}
+                src={authUser.photoURL }
                 alt="userPhoto"
               />
               <button onClick={handleEditProfile} className="btn btn-primary d-block mx-auto rounded-pill">

@@ -12,9 +12,10 @@ const MyOrders = () => {
 
   const [orders, setOrders, isLoading] = useOrders(authUser?.email);
 
-  console.log(orders);
+  const reversedOrders = [...orders].reverse();
 
-  const order = orders.map(
+
+  const order = reversedOrders.map(
     ({
       userName,
       userEmail,

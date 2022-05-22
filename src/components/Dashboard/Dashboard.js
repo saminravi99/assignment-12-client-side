@@ -62,7 +62,7 @@ const Dashboard = () => {
                       ? `dashboard-active-link mt-4`
                       : `dashboard-inactive-link mt-4`
                   }
-                  to="/dashboard/manage-order"
+                  to="/dashboard/manage-orders"
                 >
                   Manage Orders
                 </NavLink>
@@ -123,6 +123,10 @@ const Dashboard = () => {
             className={
               pathname === "/dashboard/my-orders" ||
               pathname === "/dashboard/add-review" ||
+              pathname === "/dashboard/manage-orders" ||
+              pathname === "/dashboard/add-product" ||
+              pathname === "/dashboard/make-admin" ||
+              pathname === "/dashboard/manage-product" ||
               pathname === "/dashboard/my-profile"
                 ? `d-none`
                 : `d-block`
