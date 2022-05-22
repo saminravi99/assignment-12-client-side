@@ -25,7 +25,7 @@ const HomeProducts = () => {
           <div className="col-md-4 col-sm-6 mb-4 tool-card">
             <Card
               className="shadow "
-              style={{ width: "18rem", height: "500px" }}
+              style={{ width: "21rem", height: "500px" }}
             >
               <Card.Img className="tool-img" variant="top" src={toolImage} />
               <Card.Body>
