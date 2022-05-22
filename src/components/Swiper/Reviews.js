@@ -50,7 +50,7 @@ export default function App() {
           >
             <div>
               {reversedReviews.map(({ user, review, userImage }) => (
-                <SwiperSlide key={review.id}>
+                <SwiperSlide key={review?.id}>
                   <Card className=" shadow border-0 ">
                     <Card.Body>
                       <Card.Title>

@@ -8,6 +8,8 @@ import Loading from "../Loading/Loading";
 const MyOrders = () => {
   const [authUser] = useAuthState(auth);
 
+  console.log(authUser);
+
   const [orders, setOrders, isLoading] = useOrders(authUser?.email);
 
   console.log(orders);

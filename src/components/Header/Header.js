@@ -42,6 +42,7 @@ const Header = () => {
         pathname === "/portfolio" ||
         pathname === "/payment" ||
         pathname === "/inventory" ||
+        pathname === "/edit-profile" ||
         pathname === "/contact" 
           ? `d-block`
           : `d-none`
