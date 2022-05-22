@@ -8,11 +8,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FAQ from "../FAQ/FAQ";
 import Subscribe from "../Subscribe/Subscribe";
+import HomeProducts from "../HomeProducts/HomeProducts";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
+      <div className="my-5">
+        <h1 className="text-center text-muted mb-5">Our Products</h1>
+        <HomeProducts></HomeProducts>
+      </div>
       <div className="d-flex justify-content-evenly my-3 bg-success py-5">
         <Summary
           icon={faEarthAmerica}

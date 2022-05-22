@@ -3,10 +3,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useLocation } from "react-router-dom";
 import auth from "../firebase.init";
 
-const useBooks = () => {
+const useTools = () => {
 
   //Declaring State
-  const [books, setBooks] = useState([]);
+  const [tools, setTools] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // React Firebase Hook
@@ -19,7 +19,7 @@ const useBooks = () => {
   // React Hook for Fetching All Books From The Server API
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://warehouse-management-saminravi.herokuapp.com/books", {
+    fetch("http://localhost:5000/tools", {
       headers: {
         "Content-Type": "application/json",
         email: `${authUser?.email}`,
@@ -28,12 +28,12 @@ const useBooks = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        setBooks(json);
+        setTools(json);
         setIsLoading(false);
       });
   }, [pathname, authUser]);
 
-  return [books, setBooks, isLoading];
+  return [tools, setTools, isLoading];
 };
 
-export default useBooks;
+export default useTools;
