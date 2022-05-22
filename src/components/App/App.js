@@ -26,6 +26,7 @@ import AddReview from "../AddReview/AddReview";
 import ContactUs from "../ContactUs/ContactUs";
 import MyOrders from "../MyOrders/MyOrders";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
+import RequireAdmin from "../RequireAdmin/RequireAdmin";
 
 export const AllContext = createContext();
 
@@ -69,9 +70,9 @@ function App() {
             <Route
               path="manage-products"
               element={
-                <RequireAuth>
+                <RequireAdmin>
                   <ManageProduct></ManageProduct>
-                </RequireAuth>
+                </RequireAdmin>
               }
             ></Route>
             <Route
@@ -86,9 +87,9 @@ function App() {
             <Route
               path="make-admin"
               element={
-                <RequireAuth>
+                <RequireAdmin>
                   <MakeAdmin></MakeAdmin>
-                </RequireAuth>
+                </RequireAdmin>
               }
             ></Route>
             <Route
@@ -111,17 +112,17 @@ function App() {
             <Route
               path="add-product"
               element={
-                <RequireAuth>
+                <RequireAdmin>
                   <AddProduct />
-                </RequireAuth>
+                </RequireAdmin>
               }
             ></Route>
             <Route
               path="manage-orders"
               element={
-                <RequireAuth>
+                <RequireAdmin>
                   <ManageOrders></ManageOrders>
-                </RequireAuth>
+                </RequireAdmin>
               }
             ></Route>
           </Route>

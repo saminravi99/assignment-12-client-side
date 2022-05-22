@@ -101,6 +101,14 @@ const Header = () => {
                     className={({ isActive }) =>
                       isActive ? `active-link mx-2` : `inactive-link mx-2`
                     }
+                    to="/portfolio"
+                  >
+                    My Portfolio
+                  </NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? `active-link mx-2` : `inactive-link mx-2`
+                    }
                     to="/contact"
                   >
                     Contact Us

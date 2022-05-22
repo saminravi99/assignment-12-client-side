@@ -1,34 +1,47 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import auth from '../firebase.init';
+import useAdmin from '../hooks/useAdmin';
 import "./Dashboard.css"
 
 const Dashboard = () => {
   const { pathname } = useLocation();
+  const [user] = useAuthState(auth);
+  const [admin] = useAdmin(user);
+
+  console.log(admin);
 
     return (
       <div className="my-5 d-flex">
         <div className="dashboard-sidebar shadow  ms-5 mb-5 pt-5">
-          <div className="d-flex justify-content-center">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? `dashboard-active-link ` : `dashboard-inactive-link `
-              }
-              to="/dashboard/my-orders"
-            >
-              My Orders
-            </NavLink>
+          <div className={admin ? "d-none" : "d-block"}>
+            <div className="d-flex justify-content-center">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? `dashboard-active-link `
+                    : `dashboard-inactive-link `
+                }
+                to="/dashboard/my-orders"
+              >
+                My Orders
+              </NavLink>
+            </div>
           </div>
-          <div className="d-flex justify-content-center">
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? `dashboard-active-link  my-4`
-                  : `dashboard-inactive-link my-4 `
-              }
-              to="/dashboard/add-review"
-            >
-              Add Review
-            </NavLink>
+          <div className={admin ? "d-none" : "d-block"}>
+            <div className="d-flex justify-content-center">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? `dashboard-active-link  my-4`
+                    : `dashboard-inactive-link my-4 `
+                }
+                to="/dashboard/add-review"
+              >
+                Add Review
+              </NavLink>
+            </div>
           </div>
           <div className="d-flex justify-content-center">
             <NavLink
@@ -39,6 +52,70 @@ const Dashboard = () => {
             >
               My Profile
             </NavLink>
+          </div>
+          <div>
+            {admin && (
+              <div className="d-flex justify-content-center">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? `dashboard-active-link mt-4`
+                      : `dashboard-inactive-link mt-4`
+                  }
+                  to="/dashboard/manage-order"
+                >
+                  Manage Orders
+                </NavLink>
+              </div>
+            )}
+          </div>
+          <div>
+            {admin && (
+              <div className="d-flex justify-content-center">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? `dashboard-active-link mt-4`
+                      : `dashboard-inactive-link mt-4`
+                  }
+                  to="/dashboard/add-product"
+                >
+                  Add Product
+                </NavLink>
+              </div>
+            )}
+          </div>
+          <div>
+            {admin && (
+              <div className="d-flex justify-content-center">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? `dashboard-active-link mt-4`
+                      : `dashboard-inactive-link mt-4`
+                  }
+                  to="/dashboard/make-admin"
+                >
+                  Make Admin
+                </NavLink>
+              </div>
+            )}
+          </div>
+          <div>
+            {admin && (
+              <div className="d-flex justify-content-center">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? `dashboard-active-link mt-4`
+                      : `dashboard-inactive-link mt-4`
+                  }
+                  to="/dashboard/manage-product"
+                >
+                  Manage Product
+                </NavLink>
+              </div>
+            )}
           </div>
         </div>
         <div className="w-75">
