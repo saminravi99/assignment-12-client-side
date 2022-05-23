@@ -8,8 +8,10 @@ import "./Dashboard.css"
 const Dashboard = () => {
   const { pathname } = useLocation();
   const [user] = useAuthState(auth);
+  console.log(user);
   const [admin] = useAdmin(user);
 
+  console.log(admin);
   // console.log(admin);
 
   const [showDashboard , setShowDashboard] = useState(false);

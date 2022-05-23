@@ -124,10 +124,10 @@ const ConfirmPurchase = () => {
               <h3 className="card-title text-center">{toolName}</h3>
               <div className="d-flex justify-content-around align-items-center my-3">
                 <h6 className="card-text mb-0 mx-3">
-                  Minimum Order : {minOrder} pieces
+                  <small>Minimum Order : {minOrder} pieces</small>
                 </h6>
                 <p className="card-text tool-price ">
-                  Tk. {toolPrice} per piece
+                  <small>Tk. {toolPrice} per piece</small>
                 </p>
               </div>
               <p className="card-text card-description px-5">
@@ -143,7 +143,7 @@ const ConfirmPurchase = () => {
           </div>
         </div>
         <div className="update-stock-form mt-lg-0 mt-5">
-          <Form >
+          <Form>
             <h1 className="mb-lg-0 mb-5 text-center">
               Please Confirm Your Purchase Order For{" "}
               <span className="text-primary">"{toolName}"</span>
@@ -211,8 +211,8 @@ const ConfirmPurchase = () => {
                 disabled
                 value={
                   requiredQuantity &&
-                  (parseInt(requiredQuantity) >= parseInt(minOrder) &&
-                    parseInt(requiredQuantity) <= parseInt(availableQuantity))
+                  parseInt(requiredQuantity) >= parseInt(minOrder) &&
+                  parseInt(requiredQuantity) <= parseInt(availableQuantity)
                     ? totalPrice
                     : toolPrice * minOrder
                 }
@@ -233,7 +233,7 @@ const ConfirmPurchase = () => {
 
       <div className="my-5">
         <button
-        onClick={handleSubmit}  
+          onClick={handleSubmit}
           disabled={error ? true : false}
           className="btn btn-success d-block mx-auto px-5"
         >

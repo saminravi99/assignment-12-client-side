@@ -3,9 +3,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useLocation } from "react-router-dom";
 import auth from "../firebase.init";
 
-const useAllUsers = (reload) => {
+const useAllAdmin = (reload) => {
   //Declaring State
-  const [allUsers, setAllUsers] = useState([]);
+  const [allAdmin, setAllAdmin] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // React Firebase Hook
@@ -17,7 +17,7 @@ const useAllUsers = (reload) => {
   // React Hook for Fetching All Books From The Server API
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:5000/users", {
+    fetch("http://localhost:5000/admin", {
       headers: {
         "Content-Type": "application/json",
         email: `${authUser?.email}`,
@@ -26,12 +26,12 @@ const useAllUsers = (reload) => {
     })
       .then((response) => response.json())
       .then((json) => {
-        setAllUsers(json);
+        setAllAdmin(json);
         setIsLoading(false);
       });
   }, [pathname, authUser, reload]);
 
-  return [allUsers, setAllUsers, isLoading];
+  return [allAdmin, setAllAdmin, isLoading];
 };
 
-export default useAllUsers;
+export default useAllAdmin;

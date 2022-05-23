@@ -41,7 +41,7 @@ function App() {
     if (authUser) {
       axiosPrivate
         .put(
-          "http://localhost:5000/user",
+          `http://localhost:5000/user/${authUser?.email}`,
           { email: authUser?.email, role: "user" },
           {
             headers: {

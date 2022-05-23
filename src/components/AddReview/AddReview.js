@@ -95,7 +95,7 @@ const AddReview = () => {
 
     return (
       <div>
-        <h1>Give Your Valuable Reviews</h1>
+        <h3 className="text-center text-success mb-4">Give Your Valuable Reviews Here</h3>
         <div>
           {isLoading ? (
             <Loading></Loading>

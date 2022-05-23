@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useLocation} from "react-router-dom";
 import axiosPrivate from "../../api/axiosPrivate";
 import auth from "../firebase.init";
 // import useOrders from "../hooks/useOrders";
@@ -10,7 +11,6 @@ import CancelModal from "./CancelModal";
 
 const MyOrders = () => {
   // console.log(authUser);
-  const navigate = useNavigate();
 
   // const [orders, setOrders, isLoading] = useOrders(authUser?.email);
   const [boolean, setBoolean] = React.useState(false);
@@ -160,8 +160,11 @@ const MyOrders = () => {
       setReload(true);
       axiosPrivate
         .delete(`http://localhost:5000/orders/${cancelOrderId}`)
-        .then((res) => {
-          console.log(res);
+        .then(({data}) => {
+          console.log(data);
+          if(data.deletedCount){
+            toast.success("Order Cancelled Successfully");
+          }
         });
       setCancelOrderId("");
       setProceed(false);
