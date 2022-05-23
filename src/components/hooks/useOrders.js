@@ -31,7 +31,7 @@ const useOrders = (email) => {
       });
   }, [pathname, authUser, email]);
 
-  return [orders, setOrders, isLoading];
+  return [orders, setOrders, isLoading, setIsLoading];
 };
 
 export default useOrders;

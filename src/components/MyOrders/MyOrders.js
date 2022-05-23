@@ -1,31 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import axiosPrivate from "../../api/axiosPrivate";
 import auth from "../firebase.init";
-import useOrders from "../hooks/useOrders";
+// import useOrders from "../hooks/useOrders";
 import Loading from "../Loading/Loading";
+import CancelModal from "./CancelModal";
 
 const MyOrders = () => {
+  // console.log(authUser);
+  const navigate = useNavigate();
+
+  // const [orders, setOrders, isLoading] = useOrders(authUser?.email);
+  const [boolean, setBoolean] = React.useState(false);
+
+  const [reload, setReload] = useState(false);
+
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [proceed, setProceed] = React.useState(false);
+
+
+  // React Firebase Hook
   const [authUser] = useAuthState(auth);
 
-  console.log(authUser);
+  //React Pathname Hook
+  const { pathname } = useLocation();
 
-  const [orders, setOrders, isLoading] = useOrders(authUser?.email);
+  // React Hook for Fetching All Books From The Server API
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`http://localhost:5000/orders/${authUser?.email}`, {
+      headers: {
+        "Content-Type": "application/json",
+        email: `${authUser?.email}`,
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setOrders(json);
+        setIsLoading(false);
+      });
+  }, [pathname, authUser, reload, boolean, proceed]);
 
   const reversedOrders = [...orders].reverse();
 
 
+  console.log(reversedOrders);
+
   const order = reversedOrders.map(
-    ({
-      userName,
-      userEmail,
-      toolName,
-      toolPrice,
-      quantity,
-      totalPrice,
-      isDelivered,
-      isPaid,
-    }, index) => {
+    (
+      {
+        _id,
+        userName,
+        userEmail,
+        toolName,
+        toolPrice,
+        quantity,
+        totalPrice,
+        isDelivered,
+        isPaid,
+      },
+      index
+    ) => {
       return (
         <Card className="my-3">
           <Card.Header>
@@ -91,7 +130,13 @@ const MyOrders = () => {
                 {!isDelivered && (
                   <div className="d-flex align-items-center ">
                     <div>
-                      <Button className="rounded-pill" variant="primary">
+                      <Button
+                        onClick={() => {
+                          handleCancelOrder(_id);
+                        }}
+                        className="rounded-pill"
+                        variant="primary"
+                      >
                         Cancel Order
                       </Button>
                     </div>
@@ -104,10 +149,50 @@ const MyOrders = () => {
       );
     }
   );
+  const [modalShow, setModalShow] = React.useState(false);
+  const [cancelOrderId, setCancelOrderId] = React.useState("");
+  console.log(cancelOrderId);
+  console.log(proceed);
+
+  useEffect(() => {
+    console.log("data deleted");
+    if (proceed) {
+      setReload(true);
+      axiosPrivate
+        .delete(`http://localhost:5000/orders/${cancelOrderId}`)
+        .then((res) => {
+          console.log(res);
+        });
+      setCancelOrderId("");
+      setProceed(false);
+    }
+  }, [proceed, cancelOrderId, boolean]);
+
+  const handleCancelOrder = (id) => {
+    console.log(id);
+    setModalShow(true);
+    setCancelOrderId(id);
+  };
+
   return (
     <div>
-      <h1 className="text-center text-muted mb-4">My Orders</h1>
-      <div className="container ">{isLoading ? <Loading /> : order}</div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div>
+          <h1 className="text-center text-muted mb-4">My Orders</h1>
+          <div className="container ">{isLoading ? <Loading /> : order}</div>
+        </div>
+      )}
+      <CancelModal
+        show={modalShow}
+        setProceed={setProceed}
+        setBoolean={setBoolean}
+        boolean={boolean}
+        onHide={() => {
+          setModalShow(false);
+        }}
+      ></CancelModal>
     </div>
   );
 };
