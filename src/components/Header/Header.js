@@ -43,13 +43,13 @@ const Header = () => {
         pathname === "/payment" ||
         pathname === "/inventory" ||
         pathname === "/edit-profile" ||
-        pathname === "/contact" 
-          ? `d-block`
+        pathname === "/contact"
+          ? `d-block navbar`
           : `d-none`
       }
     >
       <div>
-        <div className="pt-4 navbar-container">
+        <div className="pt-4 navbar-container navbar-mobile">
           <Navbar className="navbar-bg" collapseOnSelect expand="lg">
             <Container>
               <Link to="/">
@@ -88,7 +88,7 @@ const Header = () => {
                       </NavLink>
                     )}
                   </span>
-                 
+
                   <NavLink
                     className={({ isActive }) =>
                       isActive ? `active-link mx-2` : `inactive-link mx-2`
@@ -141,8 +141,6 @@ const Header = () => {
             </Container>
           </Navbar>
         </div>
-        
-        
       </div>
     </div>
   );

@@ -71,6 +71,10 @@
   );
 }
 
+.navbar{
+  z-index: 6;
+}
+
 .header-section-height {
   height: 140vh;
 }
@@ -137,5 +141,8 @@
   }
   .hero-container {
     position: static;
+  }
+  .navbar-mobile {
+    background-color: aliceblue;
   }
 }

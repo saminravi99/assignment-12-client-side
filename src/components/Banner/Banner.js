@@ -3,7 +3,7 @@ import "./Banner.css"
 
 const Banner = () => {
     return (
-      <div className="d-flex align-items-center justify-content-between container mx-auto">
+      <div className="d-flex flex-column-reverse flex-lg-row align-items-center justify-content-between container mx-auto">
         <div className="banner-info">
           <h1>
             Leading Tools Supplier in{" "}
@@ -15,7 +15,7 @@ const Banner = () => {
             metal products, industrial supplies and other related materials can
             fulfill all your needs.
           </h6>
-          <button className="btn btn-success my-2">Explore</button>
+          <button className="btn btn-success my-2 d-lg-inline d-block mx-lg-0 mx-auto">Explore</button>
         </div>
         <div className="d-flex justify-content-center">
           <img

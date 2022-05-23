@@ -11,8 +11,8 @@ const Summary = ({icon, number, header}) => {
           <div>
             <FontAwesomeIcon className="icon d-block mx-auto text-white" icon={icon} />
           </div>
-          <div className="mt-3">
-            <CountUp className="number text-white " duration="3" end={number} /> <span className="summary-header text-white">{header}</span>
+          <div className="mt-3 text-center">
+            <CountUp className="number text-white " duration="3" end={number} /> <span className="summary-header text-white ">{header}</span>
           </div>
         </div>
       </div>

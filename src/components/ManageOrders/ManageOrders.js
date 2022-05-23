@@ -10,6 +10,7 @@ const ManageOrders = () => {
 
     const singleOrder = reversedOrders.map(
         ({
+            _id,
             userName,
             userEmail,
             toolName,
@@ -22,7 +23,9 @@ const ManageOrders = () => {
             isPaid,
         }, index) => {
           return (
-            <tr>
+            <tr
+                key={_id}
+            >
               <td className="text-center">
                 <small>{index + 1}</small>
               </td>
@@ -72,7 +75,7 @@ const ManageOrders = () => {
           <Loading></Loading>
         ) : (
           <div className="container">
-            <Table striped bordered hover size="sm">
+            <Table responsive striped bordered hover size="sm">
               <thead>
                 <tr>
                   <th className="text-center">No.</th>

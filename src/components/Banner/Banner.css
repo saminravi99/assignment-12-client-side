@@ -9,3 +9,10 @@
 .banner-info > h6{
     line-height: 2;
 }
+
+@media screen and (max-width: 768px) {
+    .banner-info {
+        width: 100%;
+    }
+}
+    

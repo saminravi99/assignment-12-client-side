@@ -13,11 +13,11 @@ const MyProfile = () => {
   }
 
     return (
-      <div>
+      <div >
         <h3 className="text-muted my-5 text-center">My Profile</h3>
-        <div className="d-flex justify-content-center ">
+        <div className="d-flex flex-lg-row flex-column justify-content-center ">
           <div className="d-flex justify-content-center">
-            <div className="me-5">
+            <div className="me-lg-5">
               <img
                 className="rounded-circle mb-5"
                 src={authUser.photoURL }
@@ -28,7 +28,7 @@ const MyProfile = () => {
               </button>
             </div>
           </div>
-          <div>
+          <div className="mx-auto mx-lg-0 my-4 my-lg-0">
             <p>
               <strong>User Name: {authUser.displayName}</strong>
             </p>

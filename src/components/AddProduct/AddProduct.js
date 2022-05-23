@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
+import "./AddProduct.css"
 
 const AddProduct = () => {
 
@@ -12,7 +13,7 @@ const AddProduct = () => {
         <h3 className="text-center text-success mb-4">
           Add A Product In Our Database
         </h3>
-        <Form className="w-50 mx-auto mb-5">
+        <Form className="add-product-form mx-auto mb-5">
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Tool Name</Form.Label>
             <Form.Control type="text" placeholder="Wrench" />

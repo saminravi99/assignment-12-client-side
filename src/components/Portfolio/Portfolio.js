@@ -9,11 +9,11 @@ const Portfolio = () => {
     return (
       <div className="hero">
         <div className="content">
-          <span className="title">MERN Web Developer</span>
-          <h1>
+          <span className="title">MERN Stack Web Developer</span>
+          <h1 className="my-name">
             Hello, I’m <span>Samin</span>
           </h1>
-          <p>
+          <p className="my-intro">
             Passionate to work as a MERN Stack Web Developer for a software firm
             where I can leverage my talents in Web Design, Front-End and
             Back-End Web Development to give excellent customer service.
@@ -28,10 +28,10 @@ const Portfolio = () => {
           </a>
 
           <div className="my-5">
-            <h3 className="text-muted mb-3 my-project">My Projects</h3>
+            <h3 className="text-muted mb-3 my-project text-lg-start text-center">My Projects</h3>
 
-            <div className="d-flex ">
-              <Card className="project-card shadow me-3">
+            <div className="d-flex flex-lg-row flex-column  ">
+              <Card className="project-card shadow me-0 me-lg-3 ">
                 <Card.Body>
                   <a
                     target="_blank"
@@ -52,7 +52,7 @@ const Portfolio = () => {
                   </a>
                 </Card.Body>
               </Card>
-              <Card className="project-card shadow me-3">
+              <Card className="project-card shadow me-0 me-lg-3">
                 <Card.Body>
                   <a
                     target="_blank"

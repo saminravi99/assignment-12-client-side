@@ -20,22 +20,30 @@ const Home = () => {
         <h1 className="text-center text-muted mb-5">Our Products</h1>
         <HomeProducts></HomeProducts>
       </div>
-      <div className="d-flex justify-content-evenly my-3 bg-success py-5">
-        <Summary
-          icon={faEarthAmerica}
-          header="+ Countries"
-          number={47}
-        ></Summary>
-        <Summary
-          icon={faPeopleGroup}
-          header="+ Happy Clients"
-          number={100}
-        ></Summary>
-        <Summary icon={faStar} header="+ Feedback" number={134}></Summary>
+      <div className="d-flex flex-lg-row flex-column  justify-content-evenly my-3 bg-success py-5">
+        <div>
+          <Summary
+            icon={faEarthAmerica}
+            header="+ Countries"
+            number={47}
+          ></Summary>
+        </div>
+        <div className="my-5 my-lg-0">
+          <Summary
+            icon={faPeopleGroup}
+            header="+ Happy Clients"
+            number={100}
+          ></Summary>
+        </div>
+        <div>
+          <Summary icon={faStar} header="+ Feedback" number={134}></Summary>
+        </div>
       </div>
 
       <div className="my-5 ">
-        <h1 className="text-center text-muted mb-5">What Our Happy Client Says</h1>
+        <h1 className="text-center text-muted mb-5">
+          What Our Happy Client Says
+        </h1>
         <Reviews></Reviews>
       </div>
 

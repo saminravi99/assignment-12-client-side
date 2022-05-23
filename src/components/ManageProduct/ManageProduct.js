@@ -33,7 +33,7 @@ const ManageProduct = () => {
         <Loading></Loading>
       ) : (
         <div className="container">
-          <Table striped bordered hover size="sm">
+          <Table responsive striped bordered hover size="sm">
             <thead>
               <tr>
                 <th className="text-center">No.</th>
