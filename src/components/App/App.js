@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "../RequireAuth/RequireAuth";
 import { Toaster } from "react-hot-toast";
@@ -28,12 +28,35 @@ import MyOrders from "../MyOrders/MyOrders";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import RequireAdmin from "../RequireAdmin/RequireAdmin";
 import ConfirmPurchase from "../ConfirmPurchase/ConfirmPurchase";
+import axiosPrivate from "../../api/axiosPrivate";
 
 export const AllContext = createContext();
 
 function App() {
   //React Firebase Hook
   const [authUser] = useAuthState(auth);
+  console.log(authUser);
+
+  useEffect(() => {
+    if (authUser) {
+      axiosPrivate
+        .put(
+          "http://localhost:5000/user",
+          { email: authUser?.email, role: "user" },
+          {
+            headers: {
+              email: authUser.email,
+            },
+          }
+        )
+        .then((response) => {
+          const { data } = response;
+          if (data.insertedId) {
+            console.log("User added to database");
+          }
+        });
+    }
+  }, [authUser]);
 
   //Custom Hook For creating JWT Token For Social Login, Email Password Login And SignUp
   const [token] = useToken(authUser);
