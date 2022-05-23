@@ -27,6 +27,7 @@ import ContactUs from "../ContactUs/ContactUs";
 import MyOrders from "../MyOrders/MyOrders";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import RequireAdmin from "../RequireAdmin/RequireAdmin";
+import ConfirmPurchase from "../ConfirmPurchase/ConfirmPurchase";
 
 export const AllContext = createContext();
 
@@ -56,6 +57,14 @@ function App() {
             element={
               <RequireAuth>
                 <Payment />
+              </RequireAuth>
+            }
+          ></Route>
+          <Route
+            path="/confirm-purchase/:id"
+            element={
+              <RequireAuth>
+                <ConfirmPurchase />
               </RequireAuth>
             }
           ></Route>

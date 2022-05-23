@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import useTools from '../hooks/useTools';
 import Loading from '../Loading/Loading';
 import "./HomeProducts.css"
@@ -7,13 +8,24 @@ import "./HomeProducts.css"
 const HomeProducts = () => {
     const [tools, setTools, isLoading] = useTools();
 
+
+    const navigate = useNavigate();
+
     //Reverse an tools array
     
     const slicedTools = [...tools].reverse().slice(0, 6);
     console.log(slicedTools);
 
+
+    const  handleConfirmPurchase = (id) => {
+      navigate(`/confirm-purchase/${id}`);
+      window.scrollTo(0, 0);
+    }
+
+
     const singleTool = slicedTools.map(
       ({
+        _id,
         toolName,
         toolImage,
         toolPrice,
@@ -52,6 +64,7 @@ const HomeProducts = () => {
                 </Card.Text>
 
                 <Button
+                onClick={() => handleConfirmPurchase(_id)}
                   className="d-block   confirm-order-button"
                   variant="success"
                 >
