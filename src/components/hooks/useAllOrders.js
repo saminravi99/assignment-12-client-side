@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useLocation } from "react-router-dom";
 import auth from "../firebase.init";
 
-const useAllOrders = () => {
+const useAllOrders = (reload) => {
   //Declaring State
   const [allOrders, setAllOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ const useAllOrders = () => {
         setAllOrders(json);
         setIsLoading(false);
       });
-  }, [pathname, authUser]);
+  }, [pathname, authUser, reload]);
 
   return [allOrders, setAllOrders, isLoading];
 };
