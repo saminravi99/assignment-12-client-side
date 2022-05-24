@@ -1,5 +1,5 @@
 .add-product-form{
-    width: 50%;
+    width: 50% !important;
 }
 
 @media screen and (max-width: 768px) {

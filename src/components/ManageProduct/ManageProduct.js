@@ -1,13 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
+import auth from "../firebase.init";
 import useTools from "../hooks/useTools";
 import Loading from "../Loading/Loading";
+import DeleteModal from "./DeleteModal";
+import RestockModal from "./RestockModal";
 
 const ManageProduct = () => {
-  const [tools, setTools, isLoading] = useTools();
+  const [reload, setReload] = useState(false);
+  const [boolean, setBoolean] = React.useState(false);
+  const [reloadModal, setReloadModal] = React.useState(false);
+  const [proceed, setProceed] = React.useState(false);
+  const [modalShowDelete, setModalShowDelete] = React.useState(false);
+  const [modalShowRestock, setModalShowRestock] = React.useState(false);
+  const [deleteOrderId, setDeleteOrderId] = React.useState("");
+  const [restockId, setRestockId] = React.useState("");
+
+  console.log(reload);
+  const [tools, setTools, isLoading] = useTools(reload, reloadModal);
+  const [authUser] = useAuthState(auth);
+
+  const handleDeleteProduct = (id) => {
+    console.log(id);
+    setModalShowDelete(true);
+    setDeleteOrderId(id);
+  };
+
+  const handleRestockProduct = (id) => {
+    console.log(id);
+    setModalShowRestock(true);
+    setRestockId(id);
+  }
+
+  useEffect(() => {
+    console.log("data deleted");
+    if (proceed) {
+      setReload(true);
+      fetch(`http://localhost:5000/product/${deleteOrderId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          email: `${authUser?.email}`,
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          setReload(false);
+          console.log(json);
+          toast.success("Product Deleted Successfully");
+        });
+      setDeleteOrderId("");
+      setProceed(false);
+    }
+  }, [proceed, deleteOrderId, boolean, authUser?.email]);
 
   const singleTools = tools.map(
-    ({ toolName, toolPrice, availableQuantity }, index) => {
+    ({ _id, toolName, toolPrice, availableQuantity }, index) => {
       return (
         <tr>
           <td className="text-center">{index + 1}</td>
@@ -16,10 +67,20 @@ const ManageProduct = () => {
 
           <td className="text-center">{availableQuantity}</td>
           <td>
-            <button className="btn btn-success d-block mx-auto">Restock</button>
+            <button
+              onClick={() => handleRestockProduct(_id)}
+              className="btn btn-success d-block mx-auto"
+            >
+              Restock
+            </button>
           </td>
           <td>
-            <button className="btn btn-danger d-block mx-auto">Delete</button>
+            <button
+              onClick={() => handleDeleteProduct(_id)}
+              className="btn btn-danger d-block mx-auto"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       );
@@ -48,7 +109,24 @@ const ManageProduct = () => {
           </Table>
         </div>
       )}
-      ;
+      <DeleteModal
+        show={modalShowDelete}
+        setProceed={setProceed}
+        setBoolean={setBoolean}
+        boolean={boolean}
+        onHide={() => {
+          setModalShowDelete(false);
+        }}
+      ></DeleteModal>
+      <RestockModal
+        tools={tools}
+        restockId={restockId}
+        show={modalShowRestock}
+        setReloadModal={setReloadModal}
+        onHide={() => {
+          setModalShowRestock(false);
+        }}
+      ></RestockModal>
     </div>
   );
 };

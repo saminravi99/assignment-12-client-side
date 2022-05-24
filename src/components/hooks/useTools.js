@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useLocation } from "react-router-dom";
 import auth from "../firebase.init";
 
-const useTools = () => {
+const useTools = (reload, reloadModal) => {
 
   //Declaring State
   const [tools, setTools] = useState([]);
@@ -31,7 +31,7 @@ const useTools = () => {
         setTools(json);
         setIsLoading(false);
       });
-  }, [pathname, authUser]);
+  }, [pathname, authUser, reload, reloadModal]);
 
   return [tools, setTools, isLoading];
 };
