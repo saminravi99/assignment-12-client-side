@@ -24,7 +24,7 @@ const ConfirmPurchase = () => {
 
   useEffect(() => {
     axiosPrivate
-      .get(`http://localhost:5000/tools/${params.id}`, {
+      .get(`https://manufacturer-xpart.herokuapp.com/tools/${params.id}`, {
         headers: {
           email: authUser?.email,
         },
@@ -85,7 +85,7 @@ const ConfirmPurchase = () => {
     
     axiosPrivate
       .post(
-        "http://localhost:5000/orders",
+        "https://manufacturer-xpart.herokuapp.com/orders",
         userOrder,
         {
           headers: {

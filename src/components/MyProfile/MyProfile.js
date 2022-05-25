@@ -8,10 +8,11 @@ const MyProfile = () => {
   const [authUser] = useAuthState(auth);
   const [reload, setReload] = useState(false);
 
+
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${authUser?.email}`, {
+    fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

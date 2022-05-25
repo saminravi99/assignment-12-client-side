@@ -47,27 +47,27 @@ const Portfolio = () => {
                   <div>
                     <div className="mb-2">
                       <span>
-                        <strong>HTML:</strong>
+                        <strong>Mongo:</strong>
                       </span>
-                      <ProgressBar animated variant="success" now={90} />
+                      <ProgressBar animated variant="success" now={70} />
                     </div>
                     <div className="mb-2">
                       <span>
-                        <strong>JavaScript</strong>
+                        <strong>Express:</strong>
                       </span>
-                      <ProgressBar animated variant="danger" now={75} />
+                      <ProgressBar animated variant="danger" now={80} />
                     </div>
                     <div className="mb-2">
                       <span>
                         <strong>React:</strong>
                       </span>
-                      <ProgressBar animated variant="info" now={70} />
+                      <ProgressBar animated variant="info" now={90} />
                     </div>
                     <div className="mb-2">
                       <span>
                         <strong>Node:</strong>
                       </span>
-                      <ProgressBar animated variant="warning" now={65} />
+                      <ProgressBar animated variant="warning" now={60} />
                     </div>
                   </div>
                 </Card.Text>
