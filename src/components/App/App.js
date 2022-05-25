@@ -29,9 +29,6 @@ import RequireAuth from "../RequireAuth/RequireAuth";
 import SignUp from "../SignUp/SignUp";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from "react-query";

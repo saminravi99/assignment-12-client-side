@@ -3,9 +3,11 @@ import { Button, Card } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
-import useAdmin from '../hooks/useAdmin';
+// import useAdmin from '../hooks/useAdmin';
 import useTools from '../hooks/useTools';
 import Loading from '../Loading/Loading';
+import { useQuery } from "react-query";
+
 
 const AllProducts = () => {
     const [tools, setTools, isLoading] = useTools();
@@ -15,7 +17,20 @@ const AllProducts = () => {
 
     const reversedTools = [...tools].reverse();
 
-  const [admin] = useAdmin(user);
+  // const [admin] = useAdmin(user);
+    const {
+      isLoading : adminLoading,
+
+      data: admin,
+    } = useQuery("adminData", () =>
+      fetch(`https://manufacturer-xpart.herokuapp.com/admin/${user?.email}`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json())
+    );
     
     const handleConfirmPurchase = (id) => {
       navigate(`/confirm-purchase/${id}`);
@@ -83,6 +98,9 @@ const AllProducts = () => {
         );
       }
     );
+    if(adminLoading){
+      return <Loading />
+    }
     return (
       <div className="my-5">
         <div>

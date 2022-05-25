@@ -3,14 +3,14 @@ import { Button, Card } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
-import useAdmin from "../hooks/useAdmin";
+// import useAdmin from "../hooks/useAdmin";
 import Loading from "../Loading/Loading";
 import "./HomeProducts.css";
 import { useQuery } from "react-query";
 
 const HomeProducts = () => {
   const [user] = useAuthState(auth);
-  const [admin] = useAdmin(user);
+  // const [admin] = useAdmin(user);
   const navigate = useNavigate();
 
   const { isLoading, data: tools } = useQuery("toolsData", () =>
@@ -18,9 +18,25 @@ const HomeProducts = () => {
       res.json()
     )
   );
-  if (isLoading) {
-    return <Loading />;
-  }
+
+   
+   const {
+     isLoading: adminLoading,
+
+     data: admin,
+   } = useQuery("adminData", () =>
+     fetch(`https://manufacturer-xpart.herokuapp.com/admin/${user?.email}`, {
+       method: "GET",
+       headers: {
+         "content-type": "application/json",
+         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+       },
+     }).then((res) => res.json())
+   );
+
+ if (isLoading) {
+   return <Loading />;
+ }
 
   //Reverse an tools array
   const slicedTools = [...tools]?.reverse().slice(0, 6);
@@ -81,6 +97,12 @@ const HomeProducts = () => {
       );
     }
   );
+  
+
+   if(adminLoading){
+      return <Loading />;
+   }
+
   return (
     <div>
       {isLoading ? (
