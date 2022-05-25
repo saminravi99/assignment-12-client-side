@@ -1,15 +1,21 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import auth from '../firebase.init';
+import useAdmin from '../hooks/useAdmin';
 import useTools from '../hooks/useTools';
 import Loading from '../Loading/Loading';
 
 const AllProducts = () => {
     const [tools, setTools, isLoading] = useTools();
+  const [user] = useAuthState(auth);
+
     const navigate = useNavigate();
 
     const reversedTools = [...tools].reverse();
 
+  const [admin] = useAdmin(user);
     
     const handleConfirmPurchase = (id) => {
       navigate(`/confirm-purchase/${id}`);
@@ -45,24 +51,32 @@ const AllProducts = () => {
                     <strong>Price: Tk. {toolPrice}</strong> (per piece)
                   </p>
                   <small>
-                    <strong className="text-danger">
+                    <strong className="text-muted">
                       Minimum Order Quantity: {minOrder}
                     </strong>
                   </small>
                   <div>
-                    <small className="text-muted">
-                      <strong>Available Quantity: {availableQuantity}</strong>
-                    </small>
+                    {parseInt(availableQuantity) === 0 ? (
+                      <small className="text-danger">
+                        <strong>Out Of Stock</strong>
+                      </small>
+                    ) : (
+                      <small className="text-muted">
+                        <strong>Available Quantity: {availableQuantity}</strong>
+                      </small>
+                    )}
                   </div>
                 </Card.Text>
 
-                <Button
-                  onClick={() => handleConfirmPurchase(_id)}
-                  className="d-block   confirm-order-button"
-                  variant="success"
-                >
-                  Confirm Order
-                </Button>
+                {!admin && (
+                  <Button
+                    onClick={() => handleConfirmPurchase(_id)}
+                    className="d-block   confirm-order-button"
+                    variant="success"
+                  >
+                    Confirm Order
+                  </Button>
+                )}
               </Card.Body>
             </Card>
           </div>

@@ -137,7 +137,15 @@ const ConfirmPurchase = () => {
                 </span>
               </p>
               <h6 className="card-text mb-3 text-center">
-                Available Quantity : {availableQuantity}
+                {parseInt(availableQuantity) === 0 ? (
+                  <span className="text-danger">
+                    <strong>Out Of Stock</strong>
+                  </span>
+                ) : (
+                  <small className="text-muted">
+                    <strong>Available Quantity: {availableQuantity}</strong>
+                  </small>
+                )}
               </h6>
             </div>
           </div>
@@ -198,6 +206,7 @@ const ConfirmPurchase = () => {
                 name="quantity"
                 placeholder="Number of Stock"
                 required
+                disabled={parseInt(availableQuantity) === 0 ? true : false}
               />
               <p className="text-danger mt-2">
                 {error && requiredQuantity ? error : null}
@@ -234,7 +243,9 @@ const ConfirmPurchase = () => {
       <div className="my-5">
         <button
           onClick={handleSubmit}
-          disabled={error ? true : false}
+          disabled={
+            error ? true : parseInt(availableQuantity) === 0 ? true : false
+          }
           className="btn btn-success d-block mx-auto px-5"
         >
           Confirm Your Order

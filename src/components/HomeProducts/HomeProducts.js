@@ -1,12 +1,18 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import auth from '../firebase.init';
+import useAdmin from '../hooks/useAdmin';
 import useTools from '../hooks/useTools';
 import Loading from '../Loading/Loading';
 import "./HomeProducts.css"
 
 const HomeProducts = () => {
     const [tools, setTools, isLoading] = useTools();
+  const [user] = useAuthState(auth);
+  const [admin] = useAdmin(user);
+
 
 
     const navigate = useNavigate();
@@ -63,13 +69,17 @@ const HomeProducts = () => {
                   </div>
                 </Card.Text>
 
-                <Button
+                {
+                  !admin && (
+                    <Button
                 onClick={() => handleConfirmPurchase(_id)}
                   className="d-block   confirm-order-button"
                   variant="success"
                 >
                   Confirm Order
                 </Button>
+                  )
+                }
               </Card.Body>
             </Card>
           </div>
