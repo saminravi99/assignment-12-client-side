@@ -27,8 +27,12 @@ const Dashboard = () => {
     }).then((res) => res.json())
   );
 
-  console.log(admin);
-  // console.log(admin);
+
+
+
+  
+  
+  console.log(admin.admin);
 
   const [showDashboard, setShowDashboard] = useState(false);
   console.log(showDashboard);
@@ -74,7 +78,7 @@ const Dashboard = () => {
               : `d-none hidden-sidebar`
           }
         >
-          {!admin && (
+          {admin.admin === false && (
             <div>
               <div className="d-flex justify-content-center">
                 <NavLink
@@ -90,7 +94,7 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-          {!admin && (
+          {admin.admin ===false && (
             <div>
               <div className="d-flex justify-content-center">
                 <NavLink
@@ -117,7 +121,7 @@ const Dashboard = () => {
             </NavLink>
           </div>
           <div>
-            {admin && (
+            {admin.admin === true && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -133,7 +137,7 @@ const Dashboard = () => {
             )}
           </div>
           <div>
-            {admin && (
+            {admin.admin === true && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -149,7 +153,7 @@ const Dashboard = () => {
             )}
           </div>
           <div>
-            {admin && (
+            {admin.admin ===true && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -165,7 +169,7 @@ const Dashboard = () => {
             )}
           </div>
           <div>
-            {admin && (
+            {admin.admin ===true && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>

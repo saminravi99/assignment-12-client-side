@@ -83,7 +83,7 @@ const AllProducts = () => {
                   </div>
                 </Card.Text>
 
-                {!admin && (
+                {admin.admin === false && (
                   <Button
                     onClick={() => handleConfirmPurchase(_id)}
                     className="d-block   confirm-order-button"
