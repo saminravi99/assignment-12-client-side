@@ -28,7 +28,7 @@ const MyProfile = () => {
 
   setTimeout(() => {
     setReload(!reload);
-  }, 100);
+  }, 1000);
 
   const navigate = useNavigate();
 
