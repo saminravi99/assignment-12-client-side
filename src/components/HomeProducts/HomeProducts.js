@@ -40,10 +40,10 @@ const HomeProducts = () => {
         toolDescription,
       }) => {
         return (
-          <div className="col-md-4 col-sm-6 mb-4 tool-card">
+          <div className="col-md-4 col-sm-6 mb-4  tool-card">
             <Card
               className="shadow "
-              style={{ width: "21rem", height: "550px" }}
+              style={{ width: "21rem", height: "490px" }}
             >
               <Card.Img className="tool-img" variant="top" src={toolImage} />
               <Card.Body>
@@ -91,7 +91,7 @@ const HomeProducts = () => {
             {isLoading ? (
                 <Loading></Loading>
             ) : (
-                <div className="row container mx-auto">
+                <div className="row container mx-auto ">
                     {singleTool}
                 </div>
             )}

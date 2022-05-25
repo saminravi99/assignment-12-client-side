@@ -134,7 +134,7 @@ const UpdateProfile = () => {
   return (
     <div>
       <h2 className="text-center text-success my-4">Update Your Profile</h2>
-      <Form onSubmit={handleSubmit(onSubmit)} className="w-50 mx-auto mb-5">
+      <Form onSubmit={handleSubmit(onSubmit)} className="update-form mx-auto mb-5">
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Your Name</Form.Label>
           <Form.Control

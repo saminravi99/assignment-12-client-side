@@ -20,6 +20,7 @@ const ConfirmPurchase = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const handleGoBack = () => {
     navigate(-1);
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -114,9 +115,9 @@ const ConfirmPurchase = () => {
         <FontAwesomeIcon icon={faArrowLeft} />
       </div>
 
-      <div className="d-flex flex-lg-row flex-column justify-content-around align-items-center   container mx-auto">
-        <div className="update-stock-info mx-5">
-          <div className="card card-container mt-lg-5 mb-5">
+      <div className="d-flex flex-lg-row flex-column justify-content-around align-items-center   container ">
+        <div className="confirm-purchase-info mx-lg-5">
+          <div className="card mx-auto mt-lg-5 mb-5">
             <div className="mx-auto">
               <img className="tool-img" src={toolImage} alt="bookName" />
             </div>

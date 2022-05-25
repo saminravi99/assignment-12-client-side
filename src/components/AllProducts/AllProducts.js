@@ -36,7 +36,7 @@ const AllProducts = () => {
           <div className="col-md-4 col-sm-6 mb-4 tool-card">
             <Card
               className="shadow "
-              style={{ width: "21rem", height: "550px" }}
+              style={{  height: "490px" }}
             >
               <Card.Img className="tool-img" variant="top" src={toolImage} />
               <Card.Body>
@@ -89,7 +89,7 @@ const AllProducts = () => {
           {isLoading ? (
             <Loading></Loading>
           ) : (
-            <div className="row container mx-auto">{singleTool}</div>
+            <div className="row container mx-auto ">{singleTool}</div>
           )}
         </div>
       </div>
