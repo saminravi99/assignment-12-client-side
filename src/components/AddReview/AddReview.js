@@ -126,7 +126,13 @@ const AddReview = () => {
     return (
       <div>
         <h3 className="text-center text-success mb-4">
-          Give Your Valuable Reviews Here
+          {reversedReviews.length === 0 ? (
+            <span className="text-danger">
+              You Need To Order and Pay AtLeast One Product To give A Review
+            </span>
+          ) : (
+            "Give Your Valuable Reviews Here"
+          )}
         </h3>
         <div>
           {isLoading ? (
