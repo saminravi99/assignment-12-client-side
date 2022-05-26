@@ -8,14 +8,11 @@ import useTools from "../hooks/useTools";
 import "./AddProduct.css";
 
 const AddProduct = () => {
-
   const [tools, setTools, isLoading] = useTools();
   console.log(tools);
+  console.log(isLoading, setTools);
 
   // check if the product is already in the database
-
-  
-
 
   const {
     register,
@@ -24,64 +21,59 @@ const AddProduct = () => {
     reset,
   } = useForm();
 
-  // const handleAddProduct = (e) => {
-  //   e.preventDefault();
-  // };
-
   const [authUser] = useAuthState(auth);
 
   //imgBB post API
   //https://api.imgbb.com/1/upload?key=process.env.IMGBB_API_KEY
 
   const onSubmit = async (data) => {
-   console.log(tools.find((tool) => tool.toolName === data.toolName));
-   const alreadyExist = tools.find((tool) => tool.toolName === data.toolName);
-    if(!alreadyExist){
-       const image = data.toolImage[0];
-       const formData = new FormData();
-       formData.append("image", image);
-       const url = `https://api.imgbb.com/1/upload?key=91a25467b20a9debe14fa8cbbc3a4a74`;
-       console.log(url);
-       fetch(url, {
-         method: "POST",
-         body: formData,
-       })
-         .then((res) => res.json())
-         .then((result) => {
-           if (result.success) {
-             console.log(result);
-             const img = result.data.url;
-             const tool = {
-               toolName: data.toolName,
-               toolImage: img,
-               toolPrice: data.toolPrice,
-               minOrder: data.minOrder,
-               availableQuantity: data.availableQuantity,
-               toolDescription: data.toolDescription,
-             };
-             fetch("https://manufacturer-xpart.herokuapp.com/product", {
-               method: "POST",
-               headers: {
-                 "content-type": "application/json",
-                 authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                 email: authUser?.email,
-               },
-               body: JSON.stringify(tool),
-             })
-               .then((res) => res.json())
-               .then((inserted) => {
-                 console.log(inserted);
-                 if (inserted._id) {
-                   toast.success("Tool added successfully");
-                   reset();
-                 } else {
-                   toast.error("Failed to add the toool");
-                 }
-               });
-           }
-         });
-    }
-    else{
+    console.log(tools.find((tool) => tool.toolName === data.toolName));
+    const alreadyExist = tools.find((tool) => tool.toolName === data.toolName);
+    if (!alreadyExist) {
+      const image = data.toolImage[0];
+      const formData = new FormData();
+      formData.append("image", image);
+      const url = `https://api.imgbb.com/1/upload?key=91a25467b20a9debe14fa8cbbc3a4a74`;
+      console.log(url);
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.success) {
+            console.log(result);
+            const img = result.data.url;
+            const tool = {
+              toolName: data.toolName,
+              toolImage: img,
+              toolPrice: data.toolPrice,
+              minOrder: data.minOrder,
+              availableQuantity: data.availableQuantity,
+              toolDescription: data.toolDescription,
+            };
+            fetch("https://manufacturer-xpart.herokuapp.com/product", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                email: authUser?.email,
+              },
+              body: JSON.stringify(tool),
+            })
+              .then((res) => res.json())
+              .then((inserted) => {
+                console.log(inserted);
+                if (inserted._id) {
+                  toast.success("Tool added successfully");
+                  reset();
+                } else {
+                  toast.error("Failed to add the toool");
+                }
+              });
+          }
+        });
+    } else {
       toast.error("Tool already exist");
     }
   };

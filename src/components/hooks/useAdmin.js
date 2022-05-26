@@ -25,7 +25,7 @@ const useAdmin = (user) => {
           setAdminLoading(false);
         });
     }
-  }, [user]);
+  }, [user, authUser]);
 
   console.log(admin);
 

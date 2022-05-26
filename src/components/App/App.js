@@ -1,10 +1,7 @@
 import React, { createContext, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Toaster } from "react-hot-toast";
-import {
-  QueryClient,
-  QueryClientProvider
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
 import axiosPrivate from "../../api/axiosPrivate";
 import AddProduct from "../AddProduct/AddProduct";

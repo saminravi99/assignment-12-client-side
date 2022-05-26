@@ -8,7 +8,6 @@ const MyProfile = () => {
   const [authUser] = useAuthState(auth);
   const [reload, setReload] = useState(false);
 
-
   const [user, setUser] = useState({});
 
   useEffect(() => {

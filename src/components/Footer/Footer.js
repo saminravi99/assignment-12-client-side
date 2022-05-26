@@ -1,5 +1,5 @@
-import "./Footer.css"
-import React from 'react';
+import "./Footer.css";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMessage,
@@ -14,11 +14,11 @@ const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
   return (
-    <div  className="footer-dark bg-dark ">
+    <div className="footer-dark bg-dark ">
       <footer>
-        <div  className="container">
-          <div  className="row">
-            <div  className="col-sm-6 col-md-3 item">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-6 col-md-3 item">
               <h3>Services</h3>
               <ul>
                 <li>
@@ -32,7 +32,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div  className="col-sm-6 col-md-3 item">
+            <div className="col-sm-6 col-md-3 item">
               <h3>About</h3>
               <ul>
                 <li>
@@ -46,7 +46,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div  className="col-md-6 item text">
+            <div className="col-md-6 item text">
               <h3>Company Name</h3>
               <p>
                 We are the best tools supplier in Bangladesh and we are growing
@@ -56,7 +56,7 @@ const Footer = () => {
                 the business and there is no need to strive for better.
               </p>
             </div>
-            <div  className="col item social">
+            <div className="col item social">
               <ul className="list-inline mt-4">
                 <li className="list-inline-item">
                   <a href="." target="_blank" title="twitter">

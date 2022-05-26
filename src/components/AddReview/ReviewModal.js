@@ -86,26 +86,28 @@ const ReviewModal = (props) => {
               .then((response) => response.json())
               .then((json) => {
                 console.log(json);
-                fetch(`https://manufacturer-xpart.herokuapp.com/orders/${reviewOrderId}`, {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem(
-                      "accessToken"
-                    )}`,
-                    email: `${authUser?.email}`,
-                  },
-                  body: JSON.stringify({
-                    isReviewed: true,
-                  }),
-                })
+                fetch(
+                  `https://manufacturer-xpart.herokuapp.com/orders/${reviewOrderId}`,
+                  {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                      authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                      )}`,
+                      email: `${authUser?.email}`,
+                    },
+                    body: JSON.stringify({
+                      isReviewed: true,
+                    }),
+                  }
+                )
                   .then((response) => response.json())
                   .then((json) => {
                     console.log(json);
                     props.onHide();
                     toast.success("Review Added Successfully");
-                setReloadModal(!reloadModal);
-
+                    setReloadModal(!reloadModal);
                   });
               });
           }}

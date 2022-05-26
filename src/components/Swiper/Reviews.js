@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,6 +22,7 @@ import Loading from "../Loading/Loading";
 export default function App() {
   const [swiperRef, setSwiperRef] = useState(null);
   const [reviews, setReviews, isLoading] = useReviews();
+  console.log(swiperRef, setReviews);
 
   const reversedReviews = [...reviews].reverse();
 
@@ -93,7 +94,9 @@ export default function App() {
                               ))}
                           </div>
                         </div>
-                        <i className="review text-muted">"{review.slice(0,150)}"</i>
+                        <i className="review text-muted">
+                          "{review.slice(0, 150)}"
+                        </i>
                       </Card.Text>
                     </Card.Body>
                   </Card>

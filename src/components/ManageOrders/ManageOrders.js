@@ -7,6 +7,7 @@ import auth from "../firebase.init";
 import useAllOrders from "../hooks/useAllOrders";
 import useTools from "../hooks/useTools";
 import Loading from "../Loading/Loading";
+import "./ManageOrders.css";
 
 const ManageOrders = () => {
   const [authUser] = useAuthState(auth);
@@ -16,8 +17,15 @@ const ManageOrders = () => {
   const [allOrders, setAllOrders, isLoading] = useAllOrders(reload);
   const [tools, setTools] = useTools(reload);
 
-  const handleDeliver = async (id, toolName, requiredQuantity, quantity, isPaid) => {
-    if(isPaid){
+  console.log(setTools, setAllOrders);
+  const handleDeliver = async (
+    id,
+    toolName,
+    requiredQuantity,
+    quantity,
+    isPaid
+  ) => {
+    if (isPaid) {
       console.log(id);
       setReload(true);
       axiosPrivate
@@ -45,15 +53,20 @@ const ManageOrders = () => {
                 parseInt(requiredQuantity)
               ).toString(),
             };
-            fetch(`https://manufacturer-xpart.herokuapp.com/product/${requiredTool._id}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                email: `${authUser?.email}`,
-                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              },
-              body: JSON.stringify(newTool),
-            })
+            fetch(
+              `https://manufacturer-xpart.herokuapp.com/product/${requiredTool._id}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  email: `${authUser?.email}`,
+                  authorization: `Bearer ${localStorage.getItem(
+                    "accessToken"
+                  )}`,
+                },
+                body: JSON.stringify(newTool),
+              }
+            )
               .then((response) => response.json())
               .then((json) => {
                 console.log(json);
@@ -62,8 +75,7 @@ const ManageOrders = () => {
               });
           }
         });
-    }
-    else{
+    } else {
       toast.error("Order is not paid yet!");
     }
   };
@@ -85,7 +97,7 @@ const ManageOrders = () => {
         requiredQuantity,
         isPaid,
         phoneNumber,
-        address
+        address,
       },
       index
     ) => {
@@ -114,9 +126,7 @@ const ManageOrders = () => {
             <small>{address ? address : "Dhaka, Bangladesh"}</small>
           </td>
           <td className="text-center">
-            <small>{
-              phoneNumber ? phoneNumber : "01954059415"
-              }</small>
+            <small>{phoneNumber ? phoneNumber : "01954059415"}</small>
           </td>
 
           <td className="text-center ">
@@ -165,7 +175,7 @@ const ManageOrders = () => {
       {isLoading ? (
         <Loading></Loading>
       ) : (
-        <div className="container">
+        <div className="container table-height">
           <Table responsive striped bordered hover size="sm">
             <thead>
               <tr>

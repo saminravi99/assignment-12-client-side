@@ -12,47 +12,43 @@ const RequireNormalUser = ({ children }) => {
   // Using React Firebase Hooks
   const [authUser, authLoading] = useAuthState(auth);
 
+  const [admin, setAdmin] = useState({});
+  const [user, setUser] = useState({});
+  console.log(user);
+  useEffect(() => {
+    fetch(`https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAdmin(data);
+      });
 
-   const [admin, setAdmin] = useState({});
-   const [user, setUser] = useState({});
-   console.log(user);
-   useEffect(() => {
-     fetch(
-       `https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`,
-       {
-         method: "GET",
-         headers: {
-           "content-type": "application/json",
-           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-           email: `${authUser?.email}`,
-         },
-       }
-     )
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         setAdmin(data);
-       });
-
-     fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
-       method: "GET",
-       headers: {
-         "content-type": "application/json",
-         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-         email: `${authUser?.email}`,
-       },
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         setUser(data);
-       });
-   }, [authUser?.email]);
+    fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUser(data);
+      });
+  }, [authUser?.email]);
 
   if (authLoading) {
     return <Loading></Loading>;
   }
-  if (user?.role === "user" && admin?.role === "admin")  {
+  if (user?.role === "user" && admin?.role === "admin") {
     toast.error("You are an admin!");
     return <Navigate to="/" state={{ from: location }} replace />;
   }

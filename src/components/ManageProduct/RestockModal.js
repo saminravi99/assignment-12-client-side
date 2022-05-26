@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import auth from "../firebase.init";
 
 const RestockModal = (props) => {
-  const {  tools, restockId, setReloadModal } = props;
+  const { tools, restockId, setReloadModal } = props;
   console.log(tools);
   console.log(restockId);
 
@@ -15,13 +15,14 @@ const RestockModal = (props) => {
   const [quantity, setQuantity] = useState("");
   const [authUser] = useAuthState(auth);
 
-
   const updatedTool = {
-    availableQuantity: (parseInt(product?.availableQuantity) + parseInt(quantity)).toString(),
+    availableQuantity: (
+      parseInt(product?.availableQuantity) + parseInt(quantity)
+    ).toString(),
   };
 
   const handleUpdateStock = (e) => {
-      setReloadModal(true);
+    setReloadModal(true);
     fetch(`https://manufacturer-xpart.herokuapp.com/product/${restockId}`, {
       method: "PUT",
       headers: {

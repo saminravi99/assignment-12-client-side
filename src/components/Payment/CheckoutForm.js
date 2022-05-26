@@ -116,7 +116,7 @@ const CheckoutForm = (props) => {
           navigate("/dashboard/my-orders");
         });
     }
-  }, [transactionId]);
+  }, [transactionId, authUser?.email, requiredOrder?._id, navigate]);
 
   return (
     <div>

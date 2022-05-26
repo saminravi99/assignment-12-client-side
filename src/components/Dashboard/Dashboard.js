@@ -12,17 +12,14 @@ const Dashboard = () => {
   console.log(user);
   console.log(admin);
   useEffect(() => {
-    fetch(
-      `https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`,
-      {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          email: `${authUser?.email}`,
-        },
-      }
-    )
+    fetch(`https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -43,8 +40,6 @@ const Dashboard = () => {
         setUser(data);
       });
   }, [authUser?.email]);
-
-  
 
   const [showDashboard, setShowDashboard] = useState(false);
   console.log(showDashboard);
@@ -161,7 +156,7 @@ const Dashboard = () => {
             ) : null}
           </div>
           <div>
-            {(user?.role === "user" && admin?.role === "admin") ? (
+            {user?.role === "user" && admin?.role === "admin" ? (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -174,11 +169,10 @@ const Dashboard = () => {
                   Make Admin
                 </NavLink>
               </div>
-            )
-              : null}
+            ) : null}
           </div>
           <div>
-            {(user?.role === "user" && admin?.role === "admin") ? (
+            {user?.role === "user" && admin?.role === "admin" ? (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -191,8 +185,7 @@ const Dashboard = () => {
                   Manage Product
                 </NavLink>
               </div>
-            )
-              : null}
+            ) : null}
           </div>
         </div>
         <div className="right-dashboard">

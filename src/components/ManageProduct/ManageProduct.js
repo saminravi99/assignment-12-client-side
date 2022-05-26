@@ -20,6 +20,7 @@ const ManageProduct = () => {
 
   console.log(reload);
   const [tools, setTools, isLoading] = useTools(reload, reloadModal);
+  console.log(setTools);
   const [authUser] = useAuthState(auth);
 
   const handleDeleteProduct = (id) => {
@@ -32,20 +33,23 @@ const ManageProduct = () => {
     console.log(id);
     setModalShowRestock(true);
     setRestockId(id);
-  }
+  };
 
   useEffect(() => {
     console.log("data deleted");
     if (proceed) {
       setReload(true);
-      fetch(`https://manufacturer-xpart.herokuapp.com/product/${deleteOrderId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          email: `${authUser?.email}`,
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://manufacturer-xpart.herokuapp.com/product/${deleteOrderId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            email: `${authUser?.email}`,
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((json) => {
           setReload(false);

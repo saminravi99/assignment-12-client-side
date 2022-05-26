@@ -1,5 +1,5 @@
 import React from "react";
-import "./Home.css"
+import "./Home.css";
 import Banner from "../Banner/Banner";
 import Summary from "../Summary/Summary";
 import {

@@ -41,7 +41,6 @@ const Portfolio = () => {
                     </span>{" "}
                     <span>saminisrar1@gmail.com</span>
                   </div>
-                  
                 </Card.Subtitle>
                 <Card.Text>
                   <div>
@@ -74,7 +73,6 @@ const Portfolio = () => {
                 <h6 className="text-muted">
                   <strong>Address : Dhaka, Bangladesh</strong>
                 </h6>
-                
               </Card.Body>
             </Card>
           </div>

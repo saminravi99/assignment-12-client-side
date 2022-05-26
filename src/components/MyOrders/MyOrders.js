@@ -23,7 +23,6 @@ const MyOrders = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [proceed, setProceed] = React.useState(false);
 
-
   // React Firebase Hook
   const [authUser] = useAuthState(auth);
 
@@ -33,13 +32,16 @@ const MyOrders = () => {
   // React Hook for Fetching All Books From The Server API
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://manufacturer-xpart.herokuapp.com/orders/${authUser?.email}`, {
-      headers: {
-        "Content-Type": "application/json",
-        email: `${authUser?.email}`,
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://manufacturer-xpart.herokuapp.com/orders/${authUser?.email}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          email: `${authUser?.email}`,
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((json) => {
         setOrders(json);
@@ -49,14 +51,12 @@ const MyOrders = () => {
 
   const reversedOrders = [...orders].reverse();
 
-
   const navigate = useNavigate();
 
   const handlePayment = (id) => {
     navigate(`/payment/${id}`);
     window.scrollTo(0, 0);
-    
-  }
+  };
 
   console.log(reversedOrders);
 
@@ -72,7 +72,7 @@ const MyOrders = () => {
         totalPrice,
         isDelivered,
         isPaid,
-        transactionId
+        transactionId,
       },
       index
     ) => {
@@ -184,15 +184,18 @@ const MyOrders = () => {
     if (proceed) {
       setReload(true);
       axiosPrivate
-        .delete(`https://manufacturer-xpart.herokuapp.com/orders/${cancelOrderId}`,{
-          headers: {
-            "Content-Type": "application/json",
-            email: `${authUser?.email}`,
-          },
-        })
-        .then(({data}) => {
+        .delete(
+          `https://manufacturer-xpart.herokuapp.com/orders/${cancelOrderId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              email: `${authUser?.email}`,
+            },
+          }
+        )
+        .then(({ data }) => {
           console.log(data);
-          if(data.deletedCount){
+          if (data.deletedCount) {
             toast.success("Order Cancelled Successfully");
           }
         });

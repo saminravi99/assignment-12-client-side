@@ -21,50 +21,48 @@ const HomeProducts = () => {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         email: `${authUser?.email}`,
       },
-    }).then((res) =>
-      res.json()
-    )
+    }).then((res) => res.json())
   );
 
-   const [admin, setAdmin] = useState({});
-   const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState({});
+  const [user, setUser] = useState({});
 
-   useEffect(() => {
-     fetch(
-       `https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`,
-       {
-         method: "GET",
-         headers: {
-           "content-type": "application/json",
-           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-           email: `${authUser?.email}`,
-         },
-       }
-     )
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         setAdmin(data);
-       });
+  console.log(user);
+  console.log(admin);
 
-     fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
-       method: "GET",
-       headers: {
-         "content-type": "application/json",
-         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-         email: `${authUser?.email}`,
-       },
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         setUser(data);
-       });
-   }, [authUser?.email]);
+  useEffect(() => {
+    fetch(`https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAdmin(data);
+      });
 
- if (isLoading) {
-   return <Loading />;
- }
+    fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUser(data);
+      });
+  }, [authUser?.email]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   //Reverse an tools array
   const slicedTools = [...tools]?.reverse().slice(0, 6);
@@ -110,28 +108,25 @@ const HomeProducts = () => {
                 </div>
               </Card.Text>
 
-             
-                <Button
-                  onClick={() => handleConfirmPurchase(_id)}
-                  className="d-block   confirm-order-button"
-                  variant="success"
-                >
-                  Confirm Order
-                  <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
-                </Button>
-              
+              <Button
+                onClick={() => handleConfirmPurchase(_id)}
+                className="d-block   confirm-order-button"
+                variant="success"
+              >
+                Confirm Order
+                <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
+              </Button>
             </Card.Body>
           </Card>
         </div>
       );
     }
   );
-  
 
   //  if(adminLoading){
   //     return <Loading />;
   //  }
- 
+
   return (
     <div>
       {isLoading ? (

@@ -13,7 +13,7 @@ const MakeAdmin = () => {
   const [reload, setReload] = useState(false);
 
   const [allUsers, setAllUsers, isLoading] = useAllUsers(reload);
-  console.log(allUsers);
+  console.log(allUsers, setAllUsers);
   const [allAdmin] = useAllAdmin(reload);
 
   const handleMakeAdmin = (email) => {
@@ -35,9 +35,8 @@ const MakeAdmin = () => {
       });
   };
 
-
   const handleRemoveAdmin = (email) => {
-    if(email === authUser?.email){
+    if (email === authUser?.email) {
       toast.error("You can't remove yourself from admin");
       return;
     }
@@ -58,8 +57,6 @@ const MakeAdmin = () => {
       });
   };
 
-  
-
   const singleAdmin = allAdmin.map(({ email, role }, index) => {
     return (
       <tr>
@@ -74,21 +71,20 @@ const MakeAdmin = () => {
         </td>
         <td className="text-center">
           <small>
-
-      
-          <button onClick={() => handleRemoveAdmin(email)} className="btn btn-danger d-block mx-auto">Remove</button>
-           
-           
+            <button
+              onClick={() => handleRemoveAdmin(email)}
+              className="btn btn-danger d-block mx-auto"
+            >
+              Remove
+            </button>
           </small>
         </td>
       </tr>
     );
   });
-  const singleUser = allUsers.map(({_id, email, role }, index) => {
+  const singleUser = allUsers.map(({ _id, email, role }, index) => {
     return (
-      <tr 
-      key={_id}
-      >
+      <tr key={_id}>
         <td className="text-center">
           <small>{index + 1}</small>
         </td>
@@ -100,15 +96,19 @@ const MakeAdmin = () => {
         </td>
         <td className="text-center">
           <small>
-            
-           {
-            //  find the admin with the same email as the user
-            allAdmin.find(admin => admin.email === email) ? (
-              <strong className="text-center text-danger">Admin</strong>
-            ) : (
-              <button onClick={() => handleMakeAdmin(email)} className="btn btn-success d-block mx-auto">Make Admin</button>
-            )
-           }
+            {
+              //  find the admin with the same email as the user
+              allAdmin.find((admin) => admin.email === email) ? (
+                <strong className="text-center text-danger">Admin</strong>
+              ) : (
+                <button
+                  onClick={() => handleMakeAdmin(email)}
+                  className="btn btn-success d-block mx-auto"
+                >
+                  Make Admin
+                </button>
+              )
+            }
           </small>
         </td>
       </tr>

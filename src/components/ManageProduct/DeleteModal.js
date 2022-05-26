@@ -32,7 +32,6 @@ const DeleteModal = (props) => {
           className="btn btn-success d-block mx-auto px-5"
           onClick={() => {
             props.onHide();
-            
           }}
         >
           No

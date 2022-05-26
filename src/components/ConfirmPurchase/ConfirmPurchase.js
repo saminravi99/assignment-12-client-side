@@ -1,4 +1,7 @@
-import { faArrowLeft, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faMoneyCheckDollar,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
@@ -56,23 +59,26 @@ const ConfirmPurchase = () => {
 
   useEffect(() => {
     console.log(totalPrice);
-     setTotalPrice(parseInt(toolPrice) * parseInt(requiredQuantity));
-     if (parseInt(requiredQuantity) < parseInt(minOrder)) {
-       setError("Minimum order is " + minOrder);
-     } else if (parseInt(requiredQuantity) > parseInt(availableQuantity)) {
-       setError("Not enough quantity");
-     } else {
-       setError(null);
-     }
-  }
-  , [totalPrice, reload, requiredQuantity, toolPrice, availableQuantity, minOrder]);
-    
+    setTotalPrice(parseInt(toolPrice) * parseInt(requiredQuantity));
+    if (parseInt(requiredQuantity) < parseInt(minOrder)) {
+      setError("Minimum order is " + minOrder);
+    } else if (parseInt(requiredQuantity) > parseInt(availableQuantity)) {
+      setError("Not enough quantity");
+    } else {
+      setError(null);
+    }
+  }, [
+    totalPrice,
+    reload,
+    requiredQuantity,
+    toolPrice,
+    availableQuantity,
+    minOrder,
+  ]);
 
   useEffect(() => {
-     setRequiredQuantity(minOrder);
-    
+    setRequiredQuantity(minOrder);
   }, [minOrder]);
-
 
   const userOrder = {
     userName: authUser?.displayName,
@@ -87,12 +93,12 @@ const ConfirmPurchase = () => {
     requiredQuantity,
     totalPrice,
     address,
-    phoneNumber
+    phoneNumber,
   };
 
   console.log(userOrder);
   const handleSubmit = () => {
-   if(address && phoneNumber) {
+    if (address && phoneNumber) {
       axiosPrivate
         .post("https://manufacturer-xpart.herokuapp.com/orders", userOrder, {
           headers: {
@@ -110,14 +116,13 @@ const ConfirmPurchase = () => {
             toast.success("Order Placed Successfully");
           }
         });
-   }
-    else{
+    } else {
       toast.error("Please fill all the details");
     }
   };
-  
-  if(reload){
-    return <Loading></Loading>
+
+  if (reload) {
+    return <Loading></Loading>;
   }
 
   return (

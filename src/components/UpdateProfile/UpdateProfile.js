@@ -3,7 +3,6 @@ import { Button, Form } from "react-bootstrap";
 import { useAuthState, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
 import "./UpdateProfile.css";
 
@@ -29,14 +28,7 @@ const UpdateProfile = () => {
       });
   }, [authUser?.email]);
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
-
-  const navigate = useNavigate();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     const image = data?.photoURL[0];
@@ -65,15 +57,20 @@ const UpdateProfile = () => {
                 "https://foxdogconsultants.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
             };
             console.log(userInfo);
-            fetch(`https://manufacturer-xpart.herokuapp.com/update/user/${authUser.email}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                email: `${authUser?.email}`,
-                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              },
-              body: JSON.stringify(userInfo),
-            })
+            fetch(
+              `https://manufacturer-xpart.herokuapp.com/update/user/${authUser.email}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  email: `${authUser?.email}`,
+                  authorization: `Bearer ${localStorage.getItem(
+                    "accessToken"
+                  )}`,
+                },
+                body: JSON.stringify(userInfo),
+              }
+            )
               .then((response) => response.json())
               .then((json) => {
                 console.log(json);
@@ -86,7 +83,6 @@ const UpdateProfile = () => {
                     "https://foxdogconsultants.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
                 });
                 reset();
-               
               });
           }
         });
@@ -103,15 +99,18 @@ const UpdateProfile = () => {
           "https://foxdogconsultants.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
       };
       console.log(userInfo);
-      fetch(`https://manufacturer-xpart.herokuapp.com/update/user/${authUser.email}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          email: `${authUser?.email}`,
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(userInfo),
-      })
+      fetch(
+        `https://manufacturer-xpart.herokuapp.com/update/user/${authUser.email}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            email: `${authUser?.email}`,
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify(userInfo),
+        }
+      )
         .then((response) => response.json())
         .then((json) => {
           console.log(json);
@@ -124,17 +123,18 @@ const UpdateProfile = () => {
               "https://foxdogconsultants.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
           });
           reset();
-          
         });
     }
     console.log(data);
-    
   };
 
   return (
     <div>
       <h2 className="text-center text-success my-4">Update Your Profile</h2>
-      <Form onSubmit={handleSubmit(onSubmit)} className="update-form mx-auto mb-5">
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        className="update-form mx-auto mb-5"
+      >
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Your Name</Form.Label>
           <Form.Control

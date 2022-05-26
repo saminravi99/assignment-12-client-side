@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useBlogs from "../hooks/useBlogs";
 import Loading from "../Loading/Loading";
 import "./Blogs.css";
 
 const Blogs = () => {
- 
-    const [blogs, setBlogs, isLoading] = useBlogs();
+  const [blogs, setBlogs, isLoading] = useBlogs();
 
+  console.log(setBlogs);
   //Mapping The blogs Array To Render Each Blog
   const blog = blogs.map((blog) => {
     return (
