@@ -28,6 +28,7 @@ const AllProducts = () => {
          headers: {
            "content-type": "application/json",
            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+           email: `${authUser?.email}`,
          },
        }
      )
@@ -42,6 +43,7 @@ const AllProducts = () => {
        headers: {
          "content-type": "application/json",
          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         email: `${authUser?.email}`,
        },
      })
        .then((res) => res.json())
@@ -50,21 +52,6 @@ const AllProducts = () => {
          setUser(data);
        });
    }, [authUser?.email]);
-
-  // const [admin] = useAdmin(user);
-    // const {
-    //   isLoading : adminLoading,
-
-    //   data: admin,
-    // } = useQuery("adminData", () =>
-    //   fetch(`https://manufacturer-xpart.herokuapp.com/admin/${user?.email}`, {
-    //     method: "GET",
-    //     headers: {
-    //       "content-type": "application/json",
-    //       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    //     },
-    //   }).then((res) => res.json())
-    // );
     
     const handleConfirmPurchase = (id) => {
       navigate(`/confirm-purchase/${id}`);

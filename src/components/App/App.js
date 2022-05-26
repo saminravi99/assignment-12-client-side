@@ -51,7 +51,7 @@ function App() {
           { email: authUser?.email, role: "user" },
           {
             headers: {
-              email: authUser.email,
+              email: `${authUser?.email}`,
             },
           }
         )

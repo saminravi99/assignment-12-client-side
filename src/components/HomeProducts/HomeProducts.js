@@ -14,7 +14,14 @@ const HomeProducts = () => {
   const navigate = useNavigate();
 
   const { isLoading, data: tools } = useQuery("toolsData", () =>
-    fetch("https://manufacturer-xpart.herokuapp.com/tools").then((res) =>
+    fetch("https://manufacturer-xpart.herokuapp.com/tools", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
+      },
+    }).then((res) =>
       res.json()
     )
   );
@@ -30,6 +37,7 @@ const HomeProducts = () => {
          headers: {
            "content-type": "application/json",
            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+           email: `${authUser?.email}`,
          },
        }
      )
@@ -44,6 +52,7 @@ const HomeProducts = () => {
        headers: {
          "content-type": "application/json",
          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         email: `${authUser?.email}`,
        },
      })
        .then((res) => res.json())

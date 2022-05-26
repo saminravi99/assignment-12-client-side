@@ -18,6 +18,7 @@ const Dashboard = () => {
         headers: {
           "content-type": "application/json",
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          email: `${authUser?.email}`,
         },
       }
     )
@@ -32,6 +33,7 @@ const Dashboard = () => {
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        email: `${authUser?.email}`,
       },
     })
       .then((res) => res.json())

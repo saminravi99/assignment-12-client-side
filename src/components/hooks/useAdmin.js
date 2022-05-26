@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 
 const useAdmin = (user) => {
   const [admin, setAdmin] = useState(false);
+  const [authUser] = useAuthState(auth);
+
   const [adminLoading, setAdminLoading] = useState(true);
   useEffect(() => {
     const email = user?.email;
@@ -12,6 +16,7 @@ const useAdmin = (user) => {
         headers: {
           "content-type": "application/json",
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          email: `${authUser?.email}`,
         },
       })
         .then((res) => res.json())
