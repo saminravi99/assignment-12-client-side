@@ -7,7 +7,7 @@ const useAdmin = (user) => {
     const email = user?.email;
     console.log(email);
     if (email) {
-      fetch(`https://manufacturer-xpart.herokuapp.com/admin/${email}`, {
+      fetch(`https://manufacturer-xpart.herokuapp.com/verify/admin/${email}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",

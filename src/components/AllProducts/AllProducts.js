@@ -1,36 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
+// import { useQuery } from "react-query";
 import { useNavigate } from 'react-router-dom';
 import auth from '../firebase.init';
 // import useAdmin from '../hooks/useAdmin';
 import useTools from '../hooks/useTools';
 import Loading from '../Loading/Loading';
-import { useQuery } from "react-query";
 
 
 const AllProducts = () => {
     const [tools, setTools, isLoading] = useTools();
-  const [user] = useAuthState(auth);
+  const [authUser] = useAuthState(auth);
 
     const navigate = useNavigate();
 
     const reversedTools = [...tools].reverse();
 
-  // const [admin] = useAdmin(user);
-    const {
-      isLoading : adminLoading,
+  const [admin, setAdmin] = useState({});
+  const [user, setUser] = useState({});
 
-      data: admin,
-    } = useQuery("adminData", () =>
-      fetch(`https://manufacturer-xpart.herokuapp.com/admin/${user?.email}`, {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then((res) => res.json())
-    );
+   useEffect(() => {
+     fetch(
+       `https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`,
+       {
+         method: "GET",
+         headers: {
+           "content-type": "application/json",
+           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         },
+       }
+     )
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setAdmin(data);
+       });
+
+     fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
+       method: "GET",
+       headers: {
+         "content-type": "application/json",
+         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+       },
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setUser(data);
+       });
+   }, [authUser?.email]);
+
+  // const [admin] = useAdmin(user);
+    // const {
+    //   isLoading : adminLoading,
+
+    //   data: admin,
+    // } = useQuery("adminData", () =>
+    //   fetch(`https://manufacturer-xpart.herokuapp.com/admin/${user?.email}`, {
+    //     method: "GET",
+    //     headers: {
+    //       "content-type": "application/json",
+    //       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //     },
+    //   }).then((res) => res.json())
+    // );
     
     const handleConfirmPurchase = (id) => {
       navigate(`/confirm-purchase/${id}`);
@@ -49,10 +83,7 @@ const AllProducts = () => {
       }) => {
         return (
           <div className="col-md-4 col-sm-6 mb-4 tool-card">
-            <Card
-              className="shadow "
-              style={{  height: "490px" }}
-            >
+            <Card className="shadow " style={{ height: "490px" }}>
               <Card.Img className="tool-img" variant="top" src={toolImage} />
               <Card.Body>
                 <Card.Title className="text-center  tool-header">
@@ -83,24 +114,28 @@ const AllProducts = () => {
                   </div>
                 </Card.Text>
 
-                {admin.admin === false && (
-                  <Button
-                    onClick={() => handleConfirmPurchase(_id)}
-                    className="d-block   confirm-order-button"
-                    variant="success"
-                  >
-                    Confirm Order
-                  </Button>
-                )}
+                {(user?.role === "user" &&
+                  admin?.role !==
+                    "admin") || !authUser ?(
+                      <Button
+                        onClick={() => handleConfirmPurchase(_id)}
+                        className="d-block   confirm-order-button"
+                        variant="success"
+                      >
+                        Confirm Order
+                      </Button>
+                    )
+                    :
+                    null}
               </Card.Body>
             </Card>
           </div>
         );
       }
     );
-    if(adminLoading){
-      return <Loading />
-    }
+    // if(adminLoading){
+    //   return <Loading />
+    // }
     return (
       <div className="my-5">
         <div>

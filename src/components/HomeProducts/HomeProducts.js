@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
 // import useAdmin from "../hooks/useAdmin";
 import Loading from "../Loading/Loading";
 import "./HomeProducts.css";
-import { useQuery } from "react-query";
 
 const HomeProducts = () => {
-  const [user] = useAuthState(auth);
+  const [authUser] = useAuthState(auth);
   // const [admin] = useAdmin(user);
   const navigate = useNavigate();
 
@@ -19,20 +19,39 @@ const HomeProducts = () => {
     )
   );
 
-   
-   const {
-     isLoading: adminLoading,
+   const [admin, setAdmin] = useState({});
+   const [user, setUser] = useState({});
 
-     data: admin,
-   } = useQuery("adminData", () =>
-     fetch(`https://manufacturer-xpart.herokuapp.com/admin/${user?.email}`, {
+   useEffect(() => {
+     fetch(
+       `https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`,
+       {
+         method: "GET",
+         headers: {
+           "content-type": "application/json",
+           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         },
+       }
+     )
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setAdmin(data);
+       });
+
+     fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
        method: "GET",
        headers: {
          "content-type": "application/json",
          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
        },
-     }).then((res) => res.json())
-   );
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setUser(data);
+       });
+   }, [authUser?.email]);
 
  if (isLoading) {
    return <Loading />;
@@ -82,7 +101,9 @@ const HomeProducts = () => {
                 </div>
               </Card.Text>
 
-              {admin.admin === false && (
+              {(user?.role === "user" &&
+                  admin?.role !==
+                    "admin") || !authUser ? (
                 <Button
                   onClick={() => handleConfirmPurchase(_id)}
                   className="d-block   confirm-order-button"
@@ -90,7 +111,8 @@ const HomeProducts = () => {
                 >
                   Confirm Order
                 </Button>
-              )}
+              )
+              : null}
             </Card.Body>
           </Card>
         </div>
@@ -99,10 +121,10 @@ const HomeProducts = () => {
   );
   
 
-   if(adminLoading){
-      return <Loading />;
-   }
-
+  //  if(adminLoading){
+  //     return <Loading />;
+  //  }
+ 
   return (
     <div>
       {isLoading ? (

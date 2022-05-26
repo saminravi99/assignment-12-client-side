@@ -1,6 +1,10 @@
 import React, { createContext, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Toaster } from "react-hot-toast";
+import {
+  QueryClient,
+  QueryClientProvider
+} from "react-query";
 import { Route, Routes } from "react-router-dom";
 import axiosPrivate from "../../api/axiosPrivate";
 import AddProduct from "../AddProduct/AddProduct";
@@ -26,12 +30,9 @@ import Payment from "../Payment/Payment";
 import Portfolio from "../Portfolio/Portfolio";
 import RequireAdmin from "../RequireAdmin/RequireAdmin";
 import RequireAuth from "../RequireAuth/RequireAuth";
+import RequireNormalUser from "../RequireNormalUser/RequireNormalUser";
 import SignUp from "../SignUp/SignUp";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
 import "./App.css";
 
 export const AllContext = createContext();
@@ -85,7 +86,9 @@ function App() {
               path="/payment/:id"
               element={
                 <RequireAuth>
-                  <Payment />
+                  <RequireNormalUser>
+                    <Payment />
+                  </RequireNormalUser>
                 </RequireAuth>
               }
             ></Route>
@@ -93,7 +96,9 @@ function App() {
               path="/confirm-purchase/:id"
               element={
                 <RequireAuth>
-                  <ConfirmPurchase />
+                  <RequireNormalUser>
+                    <ConfirmPurchase />
+                  </RequireNormalUser>
                 </RequireAuth>
               }
             ></Route>
@@ -118,7 +123,9 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                    <MyOrders></MyOrders>
+                    <RequireNormalUser>
+                      <MyOrders></MyOrders>
+                    </RequireNormalUser>
                   </RequireAuth>
                 }
               ></Route>
@@ -142,7 +149,9 @@ function App() {
                 path="add-review"
                 element={
                   <RequireAuth>
-                    <AddReview></AddReview>
+                    <RequireNormalUser>
+                      <AddReview></AddReview>
+                    </RequireNormalUser>
                   </RequireAuth>
                 }
               ></Route>
