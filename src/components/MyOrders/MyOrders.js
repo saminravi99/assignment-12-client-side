@@ -103,6 +103,14 @@ const MyOrders = () => {
                       </i>
                     </small>
                   </p>
+                ) : !isPaid ? (
+                  <p className="mb-0 ms-3">
+                    <small>
+                      <i className="px-3 py-1 me-3  bg-danger text-white rounded-pill">
+                        Payment Pending
+                      </i>
+                    </small>
+                  </p>
                 ) : (
                   <p className="mb-0 ms-3">
                     <small>

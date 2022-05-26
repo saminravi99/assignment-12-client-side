@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# Project Name : Manufacturer Website Application (Xpart) | Assignment - 12
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Live Site Link : [ https://manufacturer-xpart.web.app/](https://manufacturer-xpart.web.app/)
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+### Client Side Repository Link : [ https://github.com/programming-hero-web-course1/manufacturer-website-client-side-saminravi99]( https://github.com/programming-hero-web-course1/manufacturer-website-client-side-saminravi99)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Server Side Repository Link : [https://github.com/programming-hero-web-course1/manufacturer-website-server-side-saminravi99](https://github.com/programming-hero-web-course1/manufacturer-website-server-side-saminravi99)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+# Project Description :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*This project is a MERN stack implemented project where you can sale various Tools & Hardwares. There is an admin dashboard implemented from where you can keep track and manage the products stock and the orders placed by the users. Additionally you can manage user roles in the website.*
 
-### `npm run build`
+*In order to buy any product from the website, users need to create account using email-password/ google/ facebook/ github. Users can order according to their desire and pay using payment method. After payment is done they can use review feature. Users can also cancel their order as well in case they change their mind on payment.*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Technologies Used In This Project:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- React Router : Routes Has Been Set Up With React Router.
+- JWT : JWT token developed for admin authorization and securing API.
+- Stripe JS : Stripe has been implemented for Payment System.
+- Swiper JS : Used to make carousel for User Reviews.
+- Custom Hooks : Custom Hooks Are Developed.
+- Firebase : Authentication System Has Been Implemented Using Firebase Authentication.
+- Node.Js : For making backend server of the website.
+- Express : For using Node Js more efficiently.
+- MongoDB : For creating database for the server side.
+- Heroku : For server side hosting.
 
-### `npm run eject`
+# Contents Shown In This Project:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Navigation Section : Contain links to navigate through the website.
+- Home : Contains Hero Section with the Tools, Stats, Reviews, FAQ, Contact and Footer
+- Blogs : Contains QnA for the assignment.
+- Admin Panel : Manage Products and Orders Placed by the users
+- Make Admin : User Management System
+- Dashboard : Contains Several Nested Routes on the basis of admin role and user role
+- My Profile : Shows Information of the user
+- Error 404 : An Implementation of Error 404 Page 

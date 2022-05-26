@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [admin, setAdmin] = useState({});
   const [user, setUser] = useState({});
   console.log(user);
+  console.log(admin);
   useEffect(() => {
     fetch(
       `https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`,

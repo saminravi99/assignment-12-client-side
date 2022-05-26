@@ -36,6 +36,7 @@ const AddReview = () => {
         quantity,
         totalPrice,
         isDelivered,
+        isPaid,
         isReviewed,
       }, index) => {
         return (
@@ -60,11 +61,25 @@ const AddReview = () => {
                     </h2>
                   </div>
                   <p className="mb-0 ms-3">
-                    <small>
-                      <i className="px-3 py-1 me-3  bg-success text-white rounded-pill">
-                        Delivered
-                      </i>
-                    </small>
+                    {isDelivered ? (
+                      <small>
+                        <i className="px-3 py-1 me-3  bg-success text-white rounded-pill">
+                          Delivered
+                        </i>
+                      </small>
+                    ) : !isPaid ? (
+                      <small>
+                        <i className="px-3 py-1 me-3  bg-danger text-white rounded-pill">
+                          Payment Pending
+                        </i>
+                      </small>
+                    ) : (
+                      <small>
+                        <i className="px-3 py-1 me-3  bg-info  rounded-pill">
+                          Delivery Pending
+                        </i>
+                      </small>
+                    )}
                   </p>
                 </div>
               </Card.Title>
@@ -81,25 +96,25 @@ const AddReview = () => {
               </Card.Text>
               <div className="d-flex justify-content-around">
                 <div>
-                  {isDelivered && (
-                    <div className="d-flex align-items-center ">
-                      <div>
-                        {isReviewed ? (
-                          <p className="text-white rounded-pill bg-success px-4 py-2">
-                            Thankyou For Reviewing This Product
-                          </p>
-                        ) : (
-                          <Button
-                            onClick={() => handleGiveReview(_id)}
-                            className="rounded-pill"
-                            variant="primary"
-                          >
-                            Give A Review
-                          </Button>
-                        )}
-                      </div>
+                  {/* {isDelivered && ( */}
+                  <div className="d-flex align-items-center ">
+                    <div>
+                      {isReviewed ? (
+                        <p className="text-white rounded-pill bg-success px-4 py-2">
+                          Thankyou For Reviewing This Product
+                        </p>
+                      ) : (
+                        <Button
+                          onClick={() => handleGiveReview(_id)}
+                          className="rounded-pill"
+                          variant="primary"
+                        >
+                          Give A Review
+                        </Button>
+                      )}
                     </div>
-                  )}
+                  </div>
+                  {/* )} */}
                 </div>
               </div>
             </Card.Body>
