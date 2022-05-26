@@ -21,6 +21,17 @@ const AllProducts = () => {
 
   const [admin, setAdmin] = useState({});
   const [user, setUser] = useState({});
+  const [reload, setReload] = useState(false);
+
+  console.log(user);
+  console.log(admin);
+
+  // useEffect(() => {
+  //   if(!user || !admin){
+  //     setReload(!reload);
+  //   }
+  // }, [reload, admin, user]);
+  
 
    useEffect(() => {
      fetch(
@@ -52,6 +63,7 @@ const AllProducts = () => {
        .then((data) => {
          console.log(data);
          setUser(data);
+         setReload(false);
        });
    }, [authUser?.email]);
     
@@ -103,8 +115,7 @@ const AllProducts = () => {
                   </div>
                 </Card.Text>
 
-                {(user?.role === "user" && admin?.role !== "admin") ||
-                !authUser ? (
+               
                   <Button
                     onClick={() => handleConfirmPurchase(_id)}
                     className="d-block   confirm-order-button"
@@ -113,16 +124,18 @@ const AllProducts = () => {
                     Confirm Order
                     <FontAwesomeIcon className="ms-2"icon={faCartShopping} />
                   </Button>
-                ) : null}
+                
               </Card.Body>
             </Card>
           </div>
         );
       }
     );
-    // if(adminLoading){
-    //   return <Loading />
-    // }
+
+    if(!admin || !user){
+      return <Loading />
+    }
+    
     return (
       <div className="my-5">
         <div>

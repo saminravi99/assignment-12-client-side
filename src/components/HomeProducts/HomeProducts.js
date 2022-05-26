@@ -6,13 +6,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
-// import useAdmin from "../hooks/useAdmin";
 import Loading from "../Loading/Loading";
 import "./HomeProducts.css";
 
 const HomeProducts = () => {
   const [authUser] = useAuthState(auth);
-  // const [admin] = useAdmin(user);
   const navigate = useNavigate();
 
   const { isLoading, data: tools } = useQuery("toolsData", () =>
@@ -112,8 +110,7 @@ const HomeProducts = () => {
                 </div>
               </Card.Text>
 
-              {(user?.role === "user" && admin?.role !== "admin") ||
-              !authUser ? (
+             
                 <Button
                   onClick={() => handleConfirmPurchase(_id)}
                   className="d-block   confirm-order-button"
@@ -122,7 +119,7 @@ const HomeProducts = () => {
                   Confirm Order
                   <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
                 </Button>
-              ) : null}
+              
             </Card.Body>
           </Card>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { Navigate, useLocation } from "react-router-dom";
 import auth from "../firebase.init";
 import Loading from "../Loading/Loading";
@@ -52,6 +53,7 @@ const RequireNormalUser = ({ children }) => {
     return <Loading></Loading>;
   }
   if (user?.role === "user" && admin?.role === "admin")  {
+    toast.error("You are an admin!");
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
