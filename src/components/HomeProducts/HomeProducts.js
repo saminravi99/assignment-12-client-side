@@ -1,3 +1,5 @@
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -110,18 +112,17 @@ const HomeProducts = () => {
                 </div>
               </Card.Text>
 
-              {(user?.role === "user" &&
-                  admin?.role !==
-                    "admin") || !authUser ? (
+              {(user?.role === "user" && admin?.role !== "admin") ||
+              !authUser ? (
                 <Button
                   onClick={() => handleConfirmPurchase(_id)}
                   className="d-block   confirm-order-button"
                   variant="success"
                 >
                   Confirm Order
+                  <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
                 </Button>
-              )
-              : null}
+              ) : null}
             </Card.Body>
           </Card>
         </div>

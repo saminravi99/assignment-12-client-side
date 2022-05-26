@@ -1,4 +1,4 @@
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
@@ -43,8 +43,13 @@ const Payment = () => {
               </Card.Header>
               <Card.Body className="h-50">
                 <h5>Payment Amount : Tk. {requiredOrder?.totalPrice}</h5>
-                <Button  onClick={() => handleProceedPayment()} className="d-block mx-auto mt-4" variant="success">
+                <Button
+                  onClick={() => handleProceedPayment()}
+                  className="d-block mx-auto mt-4"
+                  variant="success"
+                >
                   Proceed
+                  <FontAwesomeIcon className="ms-2" icon={faDollarSign} />
                 </Button>
               </Card.Body>
             </Card>

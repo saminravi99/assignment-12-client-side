@@ -24,22 +24,6 @@ const PaymentModal = (props) => {
             <CheckoutForm requiredOrder={props?.requiredOrder} onHide={props.onHide} />
           </Elements>
         </Modal.Body>
-        {/* <Modal.Footer>
-          <Button
-            className="btn btn-danger d-block mx-auto px-5"
-            onClick={() => {
-              props.onHide();
-            }}
-          >
-            Cancel Restock
-          </Button>
-          <Button
-            className="btn btn-success d-block mx-auto px-5"
-            variant="primary"
-          >
-            Restock
-          </Button>
-        </Modal.Footer> */}
       </Modal>
     );
 };

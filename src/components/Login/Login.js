@@ -130,7 +130,7 @@ const Login = () => {
             </p>
 
             <h6>
-              New to Derma Care?{" "}
+              New to Xpart?{" "}
               <span
                 onClick={handleCreateAccount}
                 className="text-primary create-new-account"

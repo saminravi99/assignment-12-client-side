@@ -1,4 +1,4 @@
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
@@ -286,6 +286,7 @@ const ConfirmPurchase = () => {
           className="btn btn-success d-block mx-auto px-5"
         >
           Confirm Your Order
+          <FontAwesomeIcon className="ms-2" icon={faMoneyCheckDollar} />
         </button>
       </div>
     </div>

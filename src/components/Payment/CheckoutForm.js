@@ -1,3 +1,5 @@
+import { faDollar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -150,6 +152,7 @@ const CheckoutForm = (props) => {
             disabled={!stripe || !clientSecret}
           >
             Confirm Payment
+            <FontAwesomeIcon className="ms-2" icon={faDollar} />
           </button>
         </div>
         <p className="text-danger mt-4">{cardError}</p>

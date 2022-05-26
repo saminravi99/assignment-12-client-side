@@ -1,3 +1,5 @@
+import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -145,6 +147,7 @@ const MyOrders = () => {
                 ) : (
                   <Button onClick={() => handlePayment(_id)} variant="success">
                     Pay Now
+                    <FontAwesomeIcon className="ms-2" icon={faCreditCard} />
                   </Button>
                 )}
               </div>
