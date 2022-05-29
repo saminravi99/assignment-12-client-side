@@ -143,8 +143,8 @@ const ManageOrders = () => {
 
           <td>
             {isDelivered ? (
-              <p className="px-3 py-1 bg-success text-white rounded-pill">
-                <small>
+              <p className=" text-center py-1 bg-success text-white rounded-pill">
+                <small className="shipped">
                   <strong>Shipped</strong>
                 </small>
               </p>
@@ -176,7 +176,7 @@ const ManageOrders = () => {
         <Loading></Loading>
       ) : (
         <div className="container table-height">
-          <Table responsive striped bordered hover size="sm">
+          <Table responsive striped bordered hover size="sm" className="table-order">
             <thead>
               <tr>
                 <th className="text-center">No.</th>

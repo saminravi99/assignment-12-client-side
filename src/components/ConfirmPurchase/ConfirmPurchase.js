@@ -1,6 +1,6 @@
 import {
   faArrowLeft,
-  faMoneyCheckDollar,
+  faMoneyCheckDollar
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -216,7 +216,7 @@ const ConfirmPurchase = () => {
               <Form.Control
                 value={requiredQuantity}
                 onChange={(e) => {
-                  setReload(!reload);
+                  // setReload(!reload);
                   setRequiredQuantity(e.target.value);
                 }}
                 type="number"

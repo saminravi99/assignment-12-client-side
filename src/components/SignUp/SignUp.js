@@ -47,16 +47,16 @@ const SignUp = () => {
       return;
     }
 
-    if (
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-        password
-      ) === false
-    ) {
-      setError(
-        "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character"
-      );
-      return;
-    }
+    // if (
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#.])[A-Za-z\d@$!%*?&]{8,}$/.test(
+    //     password
+    //   ) === false
+    // ) {
+    //   setError(
+    //     "Password must contain at least one lowercase letter, one uppercase letter, one number and one special character"
+    //   );
+    //   return;
+    // }
 
     if (password !== confirmPassword) {
       setError("Password and Confirm Password does not match");

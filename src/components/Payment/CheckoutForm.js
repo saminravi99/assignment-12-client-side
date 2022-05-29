@@ -1,25 +1,29 @@
 import { faDollar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../firebase.init";
 
 const CheckoutForm = (props) => {
-  const requiredOrder = props.requiredOrder;
+  const requiredOrder = props?.requiredOrder;
   console.log(requiredOrder);
   const stripe = useStripe();
+  console.log(stripe);
   const [transactionId, setTransactionId] = useState("");
   console.log(transactionId);
   const elements = useElements();
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  console.log(clientSecret);
   const [authUser] = useAuthState(auth);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const location = useLocation();
+
+  useLayoutEffect(() => {
     fetch("https://manufacturer-xpart.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
@@ -35,7 +39,7 @@ const CheckoutForm = (props) => {
       .then((data) => {
         setClientSecret(data.clientSecret);
       });
-  }, [requiredOrder?.totalPrice, authUser?.email]);
+  }, [requiredOrder?.totalPrice, authUser?.email, location]);
 
   const handleSubmit = async (event) => {
     // Block native form submission.

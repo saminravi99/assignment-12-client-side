@@ -21,6 +21,7 @@ const Header = () => {
   //Using Function to Sign Out Using Firebase Hooks
   const handleSignOut = () => {
     signOut(auth);
+    localStorage.removeItem("accessToken");
     navigate(from);
   };
   return (
@@ -82,7 +83,7 @@ const Header = () => {
                         className={({ isActive }) =>
                           isActive ? `active-link mx-2` : `inactive-link mx-2`
                         }
-                        to="/dashboard"
+                        to="/dashboard/my-profile"
                       >
                         Dashboard
                       </NavLink>

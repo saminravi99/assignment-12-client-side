@@ -1,8 +1,8 @@
-import React, { createContext, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
+import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import axiosPrivate from "../../api/axiosPrivate";
 import AddProduct from "../AddProduct/AddProduct";
 import AddReview from "../AddReview/AddReview";
@@ -38,7 +38,11 @@ const queryClient = new QueryClient();
 function App() {
   //React Firebase Hook
   const [authUser] = useAuthState(auth);
+  const [signInWithGoogle, googleUser] = useSignInWithGoogle(auth);
   console.log(authUser);
+  const location = useLocation();
+
+  
 
   useEffect(() => {
     if (authUser) {
@@ -54,12 +58,124 @@ function App() {
         )
         .then((response) => {
           const { data } = response;
-          if (data.insertedId) {
+          console.log(data);
             console.log("User added to database");
-          }
+
+          // if (data.insertedId) {
+          // }
         });
     }
-  }, [authUser]);
+    else if(googleUser){
+       axiosPrivate
+         .put(
+           `https://manufacturer-xpart.herokuapp.com/user/${googleUser?.email}`,
+           { email: authUser?.email, role: "user" },
+           {
+             headers: {
+               email: `${authUser?.email}`,
+             },
+           }
+         )
+         .then((response) => {
+           const { data } = response;
+           console.log(data);
+           console.log("User added to database");
+
+           // if (data.insertedId) {
+           // }
+         });
+    }
+  }, [authUser, location, googleUser]);
+
+  useEffect(() => {
+    if (authUser) {
+      axiosPrivate
+        .put(
+          `https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`,
+          { email: authUser?.email, role: "user" },
+          {
+            headers: {
+              email: `${authUser?.email}`,
+            },
+          }
+        )
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+            console.log("User added to database");
+
+          // if (data.insertedId) {
+          // }
+        });
+    }
+     else if(googleUser){
+       axiosPrivate
+         .put(
+           `https://manufacturer-xpart.herokuapp.com/user/${googleUser?.email}`,
+           { email: authUser?.email, role: "user" },
+           {
+             headers: {
+               email: `${authUser?.email}`,
+             },
+           }
+         )
+         .then((response) => {
+           const { data } = response;
+           console.log(data);
+           console.log("User added to database");
+
+           // if (data.insertedId) {
+           // }
+         });
+    }
+  }, [authUser, location, googleUser]);
+
+   const [admin, setAdmin] = useState({});
+   const [user, setUser] = useState({});
+   console.log(user);
+   console.log(admin);
+   useEffect(() => {
+     fetch(`https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`, {
+       method: "GET",
+       headers: {
+         "content-type": "application/json",
+         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         email: `${authUser?.email}`,
+       },
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setAdmin(data);
+       });
+     fetch(`https://manufacturer-xpart.herokuapp.com/admin/${googleUser?.email}`, {
+       method: "GET",
+       headers: {
+         "content-type": "application/json",
+         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         email: `${authUser?.email}`,
+       },
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setAdmin(data);
+       });
+
+     fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
+       method: "GET",
+       headers: {
+         "content-type": "application/json",
+         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+         email: `${authUser?.email}`,
+       },
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         console.log(data);
+         setUser(data);
+       });
+   }, [authUser?.email, location, googleUser]);
 
   //Custom Hook For creating JWT Token For Social Login, Email Password Login And SignUp
   const [token] = useToken(authUser);
@@ -103,7 +219,10 @@ function App() {
               path="/dashboard"
               element={
                 <RequireAuth>
-                  <Dashboard></Dashboard>
+                  <Dashboard
+                  admin={admin}
+                  user={user}
+                  ></Dashboard>
                 </RequireAuth>
               }
             >

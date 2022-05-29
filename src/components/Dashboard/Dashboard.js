@@ -1,46 +1,202 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import axiosPrivate from "../../api/axiosPrivate";
 import auth from "../firebase.init";
+import Loading from "../Loading/Loading";
 import "./Dashboard.css";
 
 const Dashboard = () => {
+  const location = useLocation();
+  const [signInWithGoogle, googleUser] = useSignInWithGoogle(auth);
+
   const { pathname } = useLocation();
+  
+  console.log(pathname);
   const [authUser] = useAuthState(auth);
+  console.log(authUser);
   const [admin, setAdmin] = useState({});
   const [user, setUser] = useState({});
   console.log(user);
   console.log(admin);
-  useEffect(() => {
-    fetch(`https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        email: `${authUser?.email}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setAdmin(data);
-      });
+  // console.log(userDash);
+  // console.log(adminDash);
+  const [reload, setReload] = useState(false);
+  console.log(reload);
 
-    fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        email: `${authUser?.email}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setUser(data);
-      });
-  }, [authUser?.email]);
+  
 
+  // useLayoutEffect(() => {
+  //   if(Object.keys(admin).length !==0){
+  //     fetch(`http://localhost:5000/admin/${admin.email}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "content-type": "application/json",
+  //         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         email: `${authUser?.email}`,
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         setAdminDash(data);
+  //       });
+
+  //    if (Object.keys(user).length !== 0) {
+  //      fetch(`http://localhost:5000/user/${user.email}`, {
+  //        method: "GET",
+  //        headers: {
+  //          "content-type": "application/json",
+  //          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //          email: `${authUser?.email}`,
+  //        },
+  //      })
+  //        .then((res) => res.json())
+  //        .then((data) => {
+  //          console.log(data);
+  //          setUserDash(data);
+  //        });
+  //    }
+  //    }
+  // }, [pathname, user, admin, authUser]);
+// useEffect(() => {
+//   if (authUser) {
+//     setReload(true);
+//     axiosPrivate
+//       .put(
+//         `https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`,
+//         { email: authUser?.email, role: "user" },
+//         {
+//           headers: {
+//             email: `${authUser?.email}`,
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         const { data } = response;
+//         console.log(data);
+//         console.log("User added to database");
+//         setReload(false);
+
+//         // if (data.insertedId) {
+//         // }
+//       });
+//   } else if (googleUser) {
+//     setReload(true);
+//     axiosPrivate
+//       .put(
+//         `https://manufacturer-xpart.herokuapp.com/user/${googleUser?.email}`,
+//         { email: authUser?.email, role: "user" },
+//         {
+//           headers: {
+//             email: `${authUser?.email}`,
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         const { data } = response;
+//         console.log(data);
+//         console.log("User added to database");
+//         setReload(false);
+//         // if (data.insertedId) {
+//         // }
+//       });
+//   }
+// }, [authUser, location, googleUser]);
+
+// useEffect(() => {
+//   setReload(true);
+//   if (authUser) {
+//     axiosPrivate
+//       .put(
+//         `https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`,
+//         { email: authUser?.email, role: "user" },
+//         {
+//           headers: {
+//             email: `${authUser?.email}`,
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         const { data } = response;
+//         console.log(data);
+//         console.log("User added to database");
+//         setReload(false);
+
+//         // if (data.insertedId) {
+//         // }
+//       });
+//   } else if (googleUser) {
+//     setReload(true);
+//     axiosPrivate
+//       .put(
+//         `https://manufacturer-xpart.herokuapp.com/user/${googleUser?.email}`,
+//         { email: authUser?.email, role: "user" },
+//         {
+//           headers: {
+//             email: `${authUser?.email}`,
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         const { data } = response;
+//         console.log(data);
+//         console.log("User added to database");
+//         setReload(false);
+
+//         // if (data.insertedId) {
+//         // }
+//       });
+//   }
+// }, [authUser, location, googleUser]);
+
+useLayoutEffect(() => {
+  setReload(true);
+  fetch(`https://manufacturer-xpart.herokuapp.com/admin/${authUser?.email}`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      email: `${authUser?.email}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setAdmin(data);
+      setReload(false);
+    });
+  fetch(`https://manufacturer-xpart.herokuapp.com/admin/${googleUser?.email}`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      email: `${authUser?.email}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setAdmin(data);
+      setReload(false);
+    });
+
+  fetch(`https://manufacturer-xpart.herokuapp.com/user/${authUser?.email}`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      email: `${authUser?.email}`,
+      
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setUser(data);
+      setReload(false);
+    });
+}, [authUser?.email, location, googleUser]);
   const [showDashboard, setShowDashboard] = useState(false);
   console.log(showDashboard);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -55,12 +211,18 @@ const Dashboard = () => {
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
+      setReload(!reload);
+
     };
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [windowWidth]);
+
+  if (reload) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -81,7 +243,7 @@ const Dashboard = () => {
               : `d-none hidden-sidebar`
           }
         >
-          {user?.role === "user" && admin?.role !== "admin" ? (
+          {admin.role !== "admin" && user.role === "user" && (
             <div>
               <div className="d-flex justify-content-center">
                 <NavLink
@@ -96,23 +258,25 @@ const Dashboard = () => {
                 </NavLink>
               </div>
             </div>
-          ) : null}
-          {user?.role === "user" && admin?.role !== "admin" ? (
-            <div>
-              <div className="d-flex justify-content-center">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive
-                      ? `dashboard-active-link  my-4`
-                      : `dashboard-inactive-link my-4 `
-                  }
-                  to="/dashboard/add-review"
-                >
-                  Add Review
-                </NavLink>
-              </div>
-            </div>
-          ) : null}
+          )}
+          {admin?.role !== "admin" &&
+            user?.role ===
+              "user" &&(
+                <div>
+                  <div className="d-flex justify-content-center">
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? `dashboard-active-link  my-4`
+                          : `dashboard-inactive-link my-4 `
+                      }
+                      to="/dashboard/add-review"
+                    >
+                      Add Review
+                    </NavLink>
+                  </div>
+                </div>
+              )}
           <div className="d-flex justify-content-center">
             <NavLink
               className={({ isActive }) =>
@@ -124,7 +288,7 @@ const Dashboard = () => {
             </NavLink>
           </div>
           <div>
-            {user?.role === "user" && admin?.role === "admin" ? (
+            {user?.role === "user" && admin?.role === "admin" && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -137,10 +301,11 @@ const Dashboard = () => {
                   Manage Orders
                 </NavLink>
               </div>
-            ) : null}
+            ) 
+            }
           </div>
           <div>
-            {user?.role === "user" && admin?.role === "admin" ? (
+            {user?.role === "user" && admin?.role === "admin" && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -153,10 +318,11 @@ const Dashboard = () => {
                   Add Product
                 </NavLink>
               </div>
-            ) : null}
+            ) 
+            }
           </div>
           <div>
-            {user?.role === "user" && admin?.role === "admin" ? (
+            {user?.role === "user" && admin?.role === "admin" && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -169,10 +335,10 @@ const Dashboard = () => {
                   Make Admin
                 </NavLink>
               </div>
-            ) : null}
+            )}
           </div>
           <div>
-            {user?.role === "user" && admin?.role === "admin" ? (
+            {user?.role === "user" && admin?.role === "admin" && (
               <div className="d-flex justify-content-center">
                 <NavLink
                   className={({ isActive }) =>
@@ -185,7 +351,7 @@ const Dashboard = () => {
                   Manage Product
                 </NavLink>
               </div>
-            ) : null}
+            ) }
           </div>
         </div>
         <div className="right-dashboard">
